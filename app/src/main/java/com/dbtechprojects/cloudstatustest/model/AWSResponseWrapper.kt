@@ -5,7 +5,7 @@ package com.dbtechprojects.cloudstatustest.model
 import org.simpleframework.xml.*
 
 @Root(name = "rss version", strict = false)
-data class AwsFeedItem(
+data class AwsFeed(
     @field:Element(name = "channel")
     @param:Element(name = "channel")
     val channel: Channel
@@ -13,35 +13,6 @@ data class AwsFeedItem(
 
 @Root(name = "Channel", strict = false)
 data class Channel(
-
-    @field:Element(name = "title")
-    @param:Element(name = "title")
-    val title: String,
-
-    @field:Element(name = "link")
-    @param:Element(name = "link")
-    val link: String,
-
-    @field:Element(name = "language")
-    @param:Element(name = "language")
-    val language: String,
-
-    @field:Element(name = "lastBuildDate")
-    @param:Element(name = "lastBuildDate")
-    val lastBuildDate: String,
-
-    @field:Element(name = "generator")
-    @param:Element(name = "generator")
-    val generator: String,
-
-    @field:Element(name = "description")
-    @param:Element(name = "description")
-    val description: String,
-
-    @field:Attribute(name = "ttl", required = false)
-    @param:Attribute(name = "ttl")
-    val ttl: String? = null,
-
     @field:ElementList(entry = "item", inline = true)
     @param:ElementList(entry = "item", inline = true)
     val item: List<AwsItem>,
@@ -82,9 +53,6 @@ data class AwsItem(
 //    @param:Element(name = "isPermaLink")
 //    val _isPermaLink: String
 //)
-
-
-
 
 
 //<title><![CDATA[Amazon Web Services Service Status]]></title>

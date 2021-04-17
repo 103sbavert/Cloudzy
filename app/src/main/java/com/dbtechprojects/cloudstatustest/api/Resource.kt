@@ -1,4 +1,4 @@
-package com.dbtechprojects.gamedeals.data
+package com.dbtechprojects.cloudstatustest.api
 
 sealed class Resource<T>(
     val data: T? = null,

@@ -1,8 +1,10 @@
 package com.dbtechprojects.cloudstatustest.repository
 
 import com.dbtechprojects.cloudstatustest.api.AwsApiInterface
+import com.dbtechprojects.cloudstatustest.model.AwsFeed
+import retrofit2.Response
 import javax.inject.Inject
 
 class Repository @Inject constructor(private var api: AwsApiInterface) {
-    suspend fun getAwsEvent() = api.getAwsEvent()?.execute()
+    fun getAwsEvent(): Response<AwsFeed> = api.getAwsEvent().execute()
 }

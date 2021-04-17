@@ -1,58 +1,46 @@
-package com.dbtechprojects.cloudstatustest.ui
+package com.dbtechprojects.cloudstatustest.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.dbtechprojects.cloudstatustest.R
+import com.dbtechprojects.cloudstatustest.databinding.RowItemAwsBinding
 import com.dbtechprojects.cloudstatustest.model.AwsItem
 
 
+class AwsItemListAdapter(private var list: List<AwsItem>) : RecyclerView.Adapter<AwsItemListAdapter.AwsItemViewHolder>() {
 
-class AwsItemListAdapter(
-    private var list: List<AwsItem>,
+    class AwsItemViewHolder(private val binding: RowItemAwsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    )
-    : RecyclerView.Adapter<AwsItemViewHolder>() {
+        fun bind(item: AwsItem) {
+            binding.rowAwsTitle.text = item.title
+            binding.rowAwsDesc.text = item.description
+            binding.rowAwsDate.text = item.pubDate
+        }
 
-    fun addevent(event: AwsItem){
+        companion object {
+            fun inflateLayout(parent: ViewGroup): AwsItemViewHolder {
+                parent.apply {
+                    val inflater = LayoutInflater.from(parent.context)
+                    val binding = RowItemAwsBinding.inflate(inflater, parent, false)
+                    return AwsItemViewHolder(binding)
+                }
+            }
+        }
+    }
+
+    fun addevent(event: AwsItem) {
         list += event
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AwsItemViewHolder{
-        val inflater = LayoutInflater.from(parent.context)
-        return AwsItemViewHolder(inflater, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AwsItemViewHolder {
+        return AwsItemViewHolder.inflateLayout(parent)
     }
 
     override fun onBindViewHolder(holder: AwsItemViewHolder, position: Int) {
-        Log.d("rv", "binding")
-
-        val itemView = holder.itemView
-        val awsitem = list[position]
-
-        Log.d("rv", awsitem.description)
-
-        val rowTitle = itemView.findViewById<TextView>(R.id.row_Aws_Title)
-        val rowDesc = itemView.findViewById<TextView>(R.id.row_Aws_Desc)
-        val rowDate = itemView.findViewById<TextView>(R.id.row_Aws_Date)
-
-        rowTitle.setText(awsitem.title)
-        rowDesc.setText(awsitem.description)
-        rowDate.setText(awsitem.pubDate)
-
-
-
+        holder.bind(list[position])
     }
 
     override fun getItemCount(): Int = list.size
-
-}
-
-
-class AwsItemViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-    RecyclerView.ViewHolder(inflater.inflate(R.layout.row_item_aws, parent, false)) {
-
-    fun bind(item: AwsItem) {}
 
 }

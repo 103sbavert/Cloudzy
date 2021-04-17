@@ -1,16 +1,12 @@
 package com.dbtechprojects.cloudstatustest.api
 
-
-
-import com.dbtechprojects.cloudstatustest.model.AwsFeedItem
+import com.dbtechprojects.cloudstatustest.model.AwsFeed
 import retrofit2.Call
 import retrofit2.http.GET
 
 interface AwsApiInterface {
     @GET("/rss/all.rss")
-    fun getAwsEvent(): Call<AwsFeedItem>?
-
-
+    fun getAwsEvent(): Call<AwsFeed>
 }
 
 
