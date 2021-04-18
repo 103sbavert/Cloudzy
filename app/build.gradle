@@ -50,13 +50,11 @@ dependencies {
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-simplexml:$retrofit_version"
 
     //tikxml
     implementation "com.tickaroo.tikxml:retrofit-converter:0.8.13"
     kapt 'com.tickaroo.tikxml:processor:0.8.13'
     implementation 'com.tickaroo.tikxml:annotation:0.8.13'
-    implementation 'com.tickaroo.tikxml:core:0.8.13'
 
     //navigation components
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

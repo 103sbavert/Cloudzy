@@ -12,9 +12,11 @@ class AwsItemListAdapter(private var list: List<AwsItem>) : RecyclerView.Adapter
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: AwsItem) {
-            binding.rowAwsTitle.text = item.title
-            binding.rowAwsDesc.text = item.description
-            binding.rowAwsDate.text = item.pubDate
+            binding.title.text = item.title
+            binding.description.text = item.description
+            binding.pubDate.text = item.pubDate
+            binding.guid.text = item.guid.text
+            binding.link.text = item.link
         }
 
         companion object {

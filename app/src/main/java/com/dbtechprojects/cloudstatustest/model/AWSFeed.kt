@@ -1,13 +1,9 @@
 package com.dbtechprojects.cloudstatustest.model
 
-import com.tickaroo.tikxml.annotation.Attribute
-import com.tickaroo.tikxml.annotation.Element
-import com.tickaroo.tikxml.annotation.PropertyElement
-import com.tickaroo.tikxml.annotation.Xml
+import com.tickaroo.tikxml.annotation.*
 
 @Xml(name = "rss")
 data class AWSFeed(
-
     @Attribute
     val version: String,
     @Element
@@ -36,21 +32,22 @@ data class Channel(
 
 @Xml(name = "item")
 data class AwsItem(
-
     @PropertyElement
     val title: String,
     @PropertyElement
     val link: String,
     @PropertyElement
     val pubDate: String,
-    @PropertyElement
-    val guid: String,
+    @Element
+    val guid: Guid,
     @PropertyElement
     val description: String
 )
 
-/*@Xml(name = "guid")
+@Xml(name = "guid")
 data class Guid(
+    @TextContent
+    val text: String,
     @Attribute(name = "isPermaLink")
-    val isPermaLink: String
-)*/
+    val isPermaLink: Boolean
+)
