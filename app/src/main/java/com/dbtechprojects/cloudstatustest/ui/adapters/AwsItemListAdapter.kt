@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dbtechprojects.cloudstatustest.databinding.RowItemAwsBinding
 import com.dbtechprojects.cloudstatustest.model.AwsItem
 
-
 class AwsItemListAdapter(private var list: List<AwsItem>) : RecyclerView.Adapter<AwsItemListAdapter.AwsItemViewHolder>() {
 
     class AwsItemViewHolder(private val binding: RowItemAwsBinding) :
@@ -29,10 +28,6 @@ class AwsItemListAdapter(private var list: List<AwsItem>) : RecyclerView.Adapter
         }
     }
 
-    fun addevent(event: AwsItem) {
-        list += event
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AwsItemViewHolder {
         return AwsItemViewHolder.inflateLayout(parent)
     }
@@ -43,4 +38,7 @@ class AwsItemListAdapter(private var list: List<AwsItem>) : RecyclerView.Adapter
 
     override fun getItemCount(): Int = list.size
 
+    fun addevent(event: AwsItem) {
+        list += event
+    }
 }

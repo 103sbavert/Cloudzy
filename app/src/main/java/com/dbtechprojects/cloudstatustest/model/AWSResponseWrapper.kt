@@ -1,11 +1,13 @@
-@file:Suppress("DEPRECATED_ANNOTATION")
-
 package com.dbtechprojects.cloudstatustest.model
 
-import org.simpleframework.xml.*
+/*
+import org.simpleframework.xml.Element
+import org.simpleframework.xml.ElementList
+import org.simpleframework.xml.Root
 
 @Root(name = "rss version", strict = false)
 data class AwsFeed(
+
     @field:Element(name = "channel")
     @param:Element(name = "channel")
     val channel: Channel
@@ -13,6 +15,7 @@ data class AwsFeed(
 
 @Root(name = "Channel", strict = false)
 data class Channel(
+
     @field:ElementList(entry = "item", inline = true)
     @param:ElementList(entry = "item", inline = true)
     val item: List<AwsItem>,
@@ -63,3 +66,4 @@ data class AwsItem(
 //<description><![CDATA[Amazon Web Services Service Status]]></description>
 //<ttl>5</ttl>
 
+*/

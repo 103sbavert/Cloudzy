@@ -3,6 +3,7 @@ package com.dbtechprojects.cloudstatustest.util
 import com.dbtechprojects.cloudstatustest.api.AwsApiInterface
 import com.dbtechprojects.cloudstatustest.repository.Repository
 import com.dbtechprojects.cloudstatustest.util.Constants.BASE_URL
+import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,10 +20,9 @@ object AppModule {
     @Provides
     fun provideAwsApi(): AwsApiInterface = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .addConverterFactory(SimpleXmlConverterFactory.create())
+        .addConverterFactory(TikXmlConverterFactory.create())
         .build()
         .create(AwsApiInterface::class.java)
-
 
     @Singleton
     @Provides

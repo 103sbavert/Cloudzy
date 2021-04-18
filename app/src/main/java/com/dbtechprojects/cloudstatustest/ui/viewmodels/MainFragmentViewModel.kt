@@ -10,19 +10,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 private const val TAG = "MainViewModel"
 
 @HiltViewModel
-class MainFragmentViewModel @Inject constructor(
-    private val repository: Repository,
-) : ViewModel() {
+class MainFragmentViewModel
+@Inject
+constructor(private val repository: Repository) : ViewModel() {
 
     val awsEvents: MutableLiveData<List<AwsItem>> = MutableLiveData()
 
     fun getAwsEvent() {
         viewModelScope.launch(Dispatchers.Default) {
-            awsEvents.postValue(repository.getAwsEvent().body()?.channel?.item)
+            awsEvents.postValue(repository.getAwsEvent().body()?.channel?.itemList)
         }
     }
 }
