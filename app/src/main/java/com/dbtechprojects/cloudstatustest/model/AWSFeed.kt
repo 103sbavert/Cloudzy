@@ -3,7 +3,7 @@ package com.dbtechprojects.cloudstatustest.model
 import com.tickaroo.tikxml.annotation.*
 
 @Xml(name = "rss")
-data class RSS(
+data class AWSFeed(
     @Attribute
     val version: String,
     @Element

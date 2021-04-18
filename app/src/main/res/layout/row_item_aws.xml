@@ -4,26 +4,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="6dp">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAppearance="?textAppearanceHeadline6"
-            android:textSize="18sp"
+            android:textAppearance="?textAppearanceHeadline7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Service is operating normally: \[RESOLVED\] Compute Environments going INVALID" />
+
+        <TextView
+            android:id="@+id/pub_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:text="Tue, 13 Apr 2021 20:00:43 PDT" />
 
         <TextView
             android:id="@+id/link"
@@ -31,35 +39,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:autoLink="web"
-            android:text="TextView"
             app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@+id/pub_date" />
-
-        <TextView
-            android:id="@+id/pub_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/pub_date"
+            tools:text="http://status.aws.amazon.com/" />
 
         <TextView
             android:id="@+id/guid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="TextView"
+            android:autoLink="web"
             app:layout_constraintStart_toStartOf="@+id/link"
-            app:layout_constraintTop_toBottomOf="@+id/link" />
+            app:layout_constraintTop_toBottomOf="@+id/link"
+            tools:text="http://status.aws.amazon.com/#batch-us-west-2_1618369243" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="TextView"
             app:layout_constraintStart_toStartOf="@+id/guid"
-            app:layout_constraintTop_toBottomOf="@+id/guid" />
+            app:layout_constraintTop_toBottomOf="@+id/guid"
+            tools:text="Between 5:25 PM and 7:52 PM PDT, some AWS Batch Compute Environments transitioned to INVALID in the US-WEST-2 Region. The issue has been resolved and the service is working normally." />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
