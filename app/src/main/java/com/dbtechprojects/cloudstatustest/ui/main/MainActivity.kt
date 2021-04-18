@@ -1,9 +1,7 @@
-package com.dbtechprojects.cloudstatustest.ui.activities
+package com.dbtechprojects.cloudstatustest.ui.main
 
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.dbtechprojects.cloudstatustest.R
 import com.dbtechprojects.cloudstatustest.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

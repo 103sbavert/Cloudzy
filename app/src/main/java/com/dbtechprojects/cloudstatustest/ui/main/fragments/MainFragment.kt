@@ -1,4 +1,4 @@
-package com.dbtechprojects.cloudstatustest.ui.activities
+package com.dbtechprojects.cloudstatustest.ui.main.fragments
 
 import android.os.Bundle
 import android.view.View
@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.dbtechprojects.cloudstatustest.R
 import com.dbtechprojects.cloudstatustest.databinding.FragmentMainBinding
+import com.dbtechprojects.cloudstatustest.ui.main.MainActivity
 import com.dbtechprojects.cloudstatustest.ui.adapters.AwsItemListAdapter
-import com.dbtechprojects.cloudstatustest.ui.viewmodels.MainFragmentViewModel
+import com.dbtechprojects.cloudstatustest.ui.main.viewmodels.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

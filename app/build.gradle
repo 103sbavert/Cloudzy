@@ -9,6 +9,7 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
+
     viewBinding {
         enabled = true
     }
@@ -52,9 +53,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     //tikxml
-    implementation "com.tickaroo.tikxml:retrofit-converter:0.8.13"
-    kapt 'com.tickaroo.tikxml:processor:0.8.13'
-    implementation 'com.tickaroo.tikxml:annotation:0.8.13'
+    implementation "com.tickaroo.tikxml:retrofit-converter:$tikxml_version"
+    kapt "com.tickaroo.tikxml:processor:$tikxml_version"
+    implementation "com.tickaroo.tikxml:annotation:$tikxml_version"
 
     //navigation components
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

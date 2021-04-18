@@ -1,4 +1,4 @@
-package com.dbtechprojects.cloudstatustest.ui.viewmodels
+package com.dbtechprojects.cloudstatustest.ui.main.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
