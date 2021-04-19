@@ -10,4 +10,16 @@
         android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/azureFragment"
+        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AzureFragment"
+        android:label="fragment_Azure"
+        tools:layout="@layout/fragment_azure" />
+
+    <fragment
+        android:id="@+id/gcpFragment"
+        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.GcpFragment"
+        android:label="fragment_Gcp"
+        tools:layout="@layout/fragment_gcp" />
 </navigation>
