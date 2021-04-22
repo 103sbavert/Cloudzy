@@ -8,8 +8,7 @@ import com.dbtechprojects.cloudstatustest.model.AzureItem
 
 class AzureItemListAdapter(private var list: List<AzureItem>) : RecyclerView.Adapter<AzureItemListAdapter.AzureItemViewHolder>() {
 
-    class AzureItemViewHolder(private val binding: RowItemAzureBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class AzureItemViewHolder(private val binding: RowItemAzureBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: AzureItem) {
             //
@@ -36,7 +35,7 @@ class AzureItemListAdapter(private var list: List<AzureItem>) : RecyclerView.Ada
 
     override fun getItemCount(): Int = list.size
 
-    fun addevent(event: AzureItem) {
+    fun addEvent(event: AzureItem) {
         list += event
     }
 }

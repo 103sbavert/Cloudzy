@@ -8,8 +8,7 @@ import com.dbtechprojects.cloudstatustest.model.AwsItem
 
 class AwsItemListAdapter(private var list: List<AwsItem>) : RecyclerView.Adapter<AwsItemListAdapter.AwsItemViewHolder>() {
 
-    class AwsItemViewHolder(private val binding: RowItemAwsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class AwsItemViewHolder(private val binding: RowItemAwsBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: AwsItem) {
             binding.title.text = item.title
@@ -40,7 +39,8 @@ class AwsItemListAdapter(private var list: List<AwsItem>) : RecyclerView.Adapter
 
     override fun getItemCount(): Int = list.size
 
-    fun addevent(event: AwsItem) {
+    fun addEvent(event: AwsItem) {
         list += event
+        notifyItemInserted(list.lastIndex)
     }
 }

@@ -36,7 +36,7 @@ class GcpItemListAdapter(private var list: List<GcpItem>) : RecyclerView.Adapter
 
     override fun getItemCount(): Int = list.size
 
-    fun addevent(event: GcpItem) {
+    fun addEvent(event: GcpItem) {
         list += event
     }
 }

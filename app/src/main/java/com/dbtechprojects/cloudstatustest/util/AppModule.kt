@@ -46,5 +46,5 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideMainRepository(awsapi: AwsApiInterface, azureapi: AzureApiInterface, gcpapi: GcpApiInterface) = Repository(awsapi, azureapi, gcpapi)
+    fun provideMainRepository(awsApi: AwsApiInterface, azureApi: AzureApiInterface, gcpApi: GcpApiInterface) = Repository(awsApi, azureApi, gcpApi)
 }

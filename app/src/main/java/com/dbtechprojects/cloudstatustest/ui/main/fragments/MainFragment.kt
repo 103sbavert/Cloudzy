@@ -1,15 +1,21 @@
 package com.dbtechprojects.cloudstatustest.ui.main.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.dbtechprojects.cloudstatustest.R
 import com.dbtechprojects.cloudstatustest.databinding.FragmentMainBinding
-import com.dbtechprojects.cloudstatustest.ui.main.MainActivity
 import com.dbtechprojects.cloudstatustest.ui.adapters.AwsItemListAdapter
+import com.dbtechprojects.cloudstatustest.ui.main.MainActivity
 import com.dbtechprojects.cloudstatustest.ui.main.viewmodels.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
