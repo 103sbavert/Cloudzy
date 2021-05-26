@@ -2,11 +2,13 @@ package com.dbtechprojects.cloudstatustest.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dbtechprojects.cloudstatustest.databinding.RowItemAwsBinding
 import com.dbtechprojects.cloudstatustest.model.AwsItem
 
-class AwsItemListAdapter(private var list: List<AwsItem>) : RecyclerView.Adapter<AwsItemListAdapter.AwsItemViewHolder>() {
+class AwsItemListAdapter : ListAdapter<AwsItem, AwsItemListAdapter.AwsItemViewHolder>(RecentQueriesDiffUtil()) {
 
     class AwsItemViewHolder(private val binding: RowItemAwsBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -34,13 +36,19 @@ class AwsItemListAdapter(private var list: List<AwsItem>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: AwsItemViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = list.size
 
-    fun addEvent(event: AwsItem) {
-        list += event
-        notifyItemInserted(list.lastIndex)
+}
+
+class RecentQueriesDiffUtil : DiffUtil.ItemCallback<AwsItem>() {
+
+    override fun areItemsTheSame(oldItem: AwsItem, newItem: AwsItem): Boolean {
+        return oldItem.title == newItem.title
+    }
+
+    override fun areContentsTheSame(oldItem: AwsItem, newItem: AwsItem): Boolean {
+        return oldItem.guid == newItem.guid
     }
 }

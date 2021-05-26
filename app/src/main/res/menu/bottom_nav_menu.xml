@@ -5,7 +5,7 @@
         android:title="GCP Feed"
         android:icon="@drawable/ic_baseline_new_releases_24"/>
     <item
-        android:id="@+id/mainFragment"
+        android:id="@+id/awsFragment"
         android:title="AWS Feed"
         android:icon="@drawable/ic_baseline_new_releases_24"/>
     <item

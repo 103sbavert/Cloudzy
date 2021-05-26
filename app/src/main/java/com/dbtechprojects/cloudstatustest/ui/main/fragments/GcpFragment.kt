@@ -1,5 +1,6 @@
 package com.dbtechprojects.cloudstatustest.ui.main.fragments
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GcpFragment : Fragment(R.layout.fragment_gcp) {
-    lateinit var binding: FragmentGcpBinding
+    private lateinit var binding: FragmentGcpBinding
     val mainActivity: MainActivity by lazy {
         requireActivity() as MainActivity
     }

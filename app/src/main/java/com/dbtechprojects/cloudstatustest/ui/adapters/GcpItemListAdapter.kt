@@ -1,10 +1,10 @@
 package com.dbtechprojects.cloudstatustest.ui.adapters
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dbtechprojects.cloudstatustest.databinding.RowItemGcpBinding
 import com.dbtechprojects.cloudstatustest.model.GcpItem
-
 
 class GcpItemListAdapter(private var list: List<GcpItem>) : RecyclerView.Adapter<GcpItemListAdapter.GcpItemViewHolder>() {
 
