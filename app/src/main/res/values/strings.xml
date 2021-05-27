@@ -2,4 +2,7 @@
     <string name="app_name">CloudStatusTest</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="disable_notifications">Disable All Notifications</string>
+    <string name="settings">Settings</string>
+    <string name="all_notification_enabled">All Notifications Enabled</string>
 </resources>

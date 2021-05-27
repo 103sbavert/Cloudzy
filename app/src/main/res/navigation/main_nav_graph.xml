@@ -9,7 +9,7 @@
         android:id="@+id/awsFragment"
         android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AwsFragment"
         android:label="fragment_aws"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_aws" />
 
     <fragment
         android:id="@+id/azureFragment"
@@ -22,4 +22,9 @@
         android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.GcpFragment"
         android:label="fragment_Gcp"
         tools:layout="@layout/fragment_gcp" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
 </navigation>
