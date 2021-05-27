@@ -52,9 +52,6 @@ data class AwsItem(
     @PropertyElement
     val title: String? = null,
 
-    @Attribute
-    val customErrorValue: String? = null,
-
     @ColumnInfo(name = "link")
     @PropertyElement
     val link: String? = null,
