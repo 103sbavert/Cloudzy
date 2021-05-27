@@ -11,7 +11,7 @@ import com.dbtechprojects.cloudstatustest.model.AwsItem
 @TypeConverters(Converters::class)
 abstract class CacheDatabase : RoomDatabase() {
 
-    abstract fun cloudStatusDao(): CloudStatusDAO
+    abstract fun getDao(): CloudStatusDAO
 
     companion object {
 

@@ -20,15 +20,15 @@ interface CloudStatusDAO {
     @Query("DELETE FROM awsItems")
     suspend fun deleteAllAwsItems()
 
-/*    // GCP
-    @Query("SELECT * FROM gcpItems")
-    fun getGcpEvents(): Flow<List<GcpDbItem>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGcpItem(item: GcpDbItem)
-
-    @Query("DELETE FROM gcpItems")
-    suspend fun deleteAllGcpItems()*/
+    // GCP
+//    @Query("SELECT * FROM gcpItems")
+//    fun getGcpEvents(): Flow<List<GcpDbItem>>
+//
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertGcpItem(item: GcpDbItem)
+//
+//    @Query("DELETE FROM gcpItems")
+//    suspend fun deleteAllGcpItems()
 
     // WorkManager Queries
 
@@ -36,7 +36,7 @@ interface CloudStatusDAO {
     @Query("SELECT * FROM awsItems LIMIT :limit")
     fun getLatestAwsEvent(limit: Int): List<AwsItem>
 
-/*    // first GCP Feed
-    @Query("SELECT * FROM gcpItems LIMIT :limit")
-    fun getLatestGcpEvent(limit: Int): List<GcpDbItem>*/
+    // first GCP Feed
+//    @Query("SELECT * FROM gcpItems LIMIT :limit")
+//    fun getLatestGcpEvent(limit: Int): List<GcpDbItem>
 }

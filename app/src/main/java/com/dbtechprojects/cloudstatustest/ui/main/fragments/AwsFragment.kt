@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AwsFragment : Fragment(R.layout.fragment_aws) {
     private lateinit var binding: FragmentAwsBinding
-    val mainActivity: MainActivity by lazy {
+    private val mainActivity: MainActivity by lazy {
         requireActivity() as MainActivity
     }
     private val viewModel: MainFragmentViewModel by viewModels()
@@ -42,7 +42,7 @@ class AwsFragment : Fragment(R.layout.fragment_aws) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainActivity.bottomNavigationView.setOnNavigationItemReselectedListener {
-            viewModel.getAwsEvent()
+            viewModel.fetchResults()
         }
     }
 }

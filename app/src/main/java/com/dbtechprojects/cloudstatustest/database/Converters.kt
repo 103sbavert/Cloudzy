@@ -14,16 +14,16 @@ class Converters {
 
     @TypeConverter
     fun String.convertToGuid(): Guid {
-        var text = ""
-        var isPermaLinkString = ""
+        val text = StringBuilder()
+        val isPermaLinkString = StringBuilder()
         for (each in this.withIndex()) {
             val indexOfDelimiter = this.indexOf(';')
             when {
-                each.index < indexOfDelimiter -> text += each.value
+                each.index < indexOfDelimiter -> text.append(each.value)
                 each.index == indexOfDelimiter -> continue
-                each.index > indexOfDelimiter -> isPermaLinkString += each.value
+                each.index > indexOfDelimiter -> isPermaLinkString.append(each.value)
             }
         }
-        return Guid(text, isPermaLinkString.toBoolean())
+        return Guid(text.toString(), isPermaLinkString.toString().toBoolean())
     }
 }

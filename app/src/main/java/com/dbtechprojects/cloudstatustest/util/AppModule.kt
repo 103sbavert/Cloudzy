@@ -5,7 +5,7 @@ import com.dbtechprojects.cloudstatustest.api.AwsApiInterface
 import com.dbtechprojects.cloudstatustest.api.AzureApiInterface
 import com.dbtechprojects.cloudstatustest.api.GcpApiInterface
 import com.dbtechprojects.cloudstatustest.database.CacheDatabase
-import com.dbtechprojects.cloudstatustest.repository.Repository
+import com.dbtechprojects.cloudstatustest.repository.MainRepository
 import com.dbtechprojects.cloudstatustest.util.Constants.AWS_URL
 import com.dbtechprojects.cloudstatustest.util.Constants.AZURE_URL
 import com.dbtechprojects.cloudstatustest.util.Constants.GCP_URL
@@ -49,7 +49,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideMainRepository(awsApi: AwsApiInterface, azureApi: AzureApiInterface, gcpApi: GcpApiInterface, database: CacheDatabase) = Repository(awsApi, azureApi, gcpApi, database)
+    fun provideMainRepository(awsApi: AwsApiInterface, azureApi: AzureApiInterface, gcpApi: GcpApiInterface, database: CacheDatabase) = MainRepository(awsApi, azureApi, gcpApi, database)
 
     @Provides
     fun provideCacheDb(@ApplicationContext context: Context): CacheDatabase {
