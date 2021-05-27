@@ -1,6 +1,6 @@
 package com.dbtechprojects.cloudstatustest.repository
 
-import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.dbtechprojects.cloudstatustest.api.AwsApiInterface
 import com.dbtechprojects.cloudstatustest.api.AzureApiInterface
 import com.dbtechprojects.cloudstatustest.api.GcpApiInterface
@@ -25,6 +25,12 @@ constructor(
     private var gcpapi: GcpApiInterface,
     private val database: CacheDatabase
 ) {
+    enum class State {
+        SUCCESS,
+        FAILURE
+    }
+
+    val awsApiFetchResult by lazy { MutableLiveData<State>() }
 
     fun fetchFromAwsApi(coroutineScope: CoroutineScope) {
         val call = awsapi.getAwsCall()
@@ -32,11 +38,12 @@ constructor(
             override fun onResponse(call: Call<AWSFeed>, response: Response<AWSFeed>) {
                 if (response.isSuccessful) {
                     response.body()?.channel?.itemList?.let { putAwsItemsInDb(coroutineScope, it) }
-                }
+                    awsApiFetchResult.value = State.SUCCESS
+                } else awsApiFetchResult.value = State.FAILURE
             }
 
             override fun onFailure(call: Call<AWSFeed>, t: Throwable) {
-                Log.e(TAG, "onFailure: An error occurred while trying to fetch data from the API")
+                awsApiFetchResult.value = State.FAILURE
             }
         })
     }
