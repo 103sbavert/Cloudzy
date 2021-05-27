@@ -1,3 +1,2 @@
-include ':darcula-solid'
 include ':app'
 rootProject.name = "CloudStatusTest"

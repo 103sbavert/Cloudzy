@@ -15,6 +15,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
+private const val TAG = "Main Repository"
+
 class MainRepository
 @Inject
 constructor(
@@ -23,9 +25,6 @@ constructor(
     private var gcpapi: GcpApiInterface,
     private val database: CacheDatabase
 ) {
-    companion object {
-        private const val TAG = "Main Repository"
-    }
 
     fun fetchFromAwsApi(coroutineScope: CoroutineScope) {
         val call = awsapi.getAwsCall()
@@ -53,5 +52,4 @@ constructor(
     fun getGcpEvent() = gcpapi.getGcpEvent()
 
     fun getDatabaseDao() = database.getDao()
-
 }
