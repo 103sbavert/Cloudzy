@@ -13,94 +13,86 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/id"
+            android:id="@+id/severity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            tools:text="Medium"
+            tools:textColor="@android:color/holo_orange_light"
+            android:padding="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toStartOf="@+id/title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/title" />
 
         <TextView
-            android:id="@+id/number"
-            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/id"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/id"
-            app:layout_constraintTop_toTopOf="@+id/id" />
-
-        <TextView
-            android:id="@+id/end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:textAppearance="?textAppearanceHeadline7"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toEndOf="@+id/severity"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Increased latency and packet loss" />
 
         <TextView
-            android:id="@+id/created"
+            android:id="@+id/pub_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/end"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/modified"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="170dp"
-            tools:layout_editor_absoluteY="40dp" />
-
-        <TextView
-            android:id="@+id/begin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="170dp"
-            tools:layout_editor_absoluteY="40dp" />
-
-        <TextView
-            android:id="@+id/external_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="170dp"
-            tools:layout_editor_absoluteY="40dp" />
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:text="Tue, 13 Apr 2021 20:00:43 PDT" />
 
         <TextView
             android:id="@+id/status_impact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="170dp"
-            tools:layout_editor_absoluteY="40dp" />
+            android:layout_marginTop="12dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/severity"
+            app:layout_constraintTop_toBottomOf="@+id/pub_date"
+            tools:text="Impact: SERVICE_OUTAGE" />
 
         <TextView
-            android:id="@+id/severity"
+            android:id="@+id/affected_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="170dp"
-            tools:layout_editor_absoluteY="40dp" />
+            app:layout_constraintStart_toStartOf="@+id/status_impact"
+            app:layout_constraintTop_toBottomOf="@+id/status_impact"
+            tools:text="Product: Google Cloud Networking" />
 
         <TextView
-            android:id="@+id/service_name"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="170dp"
-            tools:layout_editor_absoluteY="40dp" />
+            android:layout_height="125dp"
+            android:layout_marginTop="12dp"
+            android:padding="6dp"
+            app:layout_constraintStart_toStartOf="@+id/affected_product"
+            app:layout_constraintTop_toBottomOf="@+id/affected_product"
+            app:layout_constraintBottom_toTopOf="@id/button_updates"
+            tools:text="# ISSUE SUMMARY On Wednesday 17 March 2021, Google Cloud Networking and Cloud Services that depend on Google's backbone network experienced a service disruption that resulted in increased latency, packet loss, and service unavailable errors for some services for a duration of 3 hours, 39 minutes. Cloud Interconnect had an extended impact duration of 4 hours, 30 minutes. We understand that this issue has impacted our valued customers and users, and we apologize to those who were affected. # ROOT CAUSE Google Cloud datacenters connect to Google’s global Backbone network through a datacenter edge networking stack that uses routers to bridge a region’s network with the global Backbone network. There are multiple roles that routers in Google networks have; some routers are dedicated to providing connectivity to the Google Backbone network, others are dedicated to providing aggregation for customer and peering routes. Google utilizes routers from multiple vendors to provide defense in depth in order to reduce impact for issues that affect a specific router vendor. The trigger for this service disruption was a new set of routers being connected to Google’s backbone network as part of the normal router build process. The routers were part of a new network topology, this topology changed routes that some router roles received. This change in topology inadvertently caused the associated routes to be communicated to routers responsible for providing connectivity to the Google backbone, as well as aggregation routers. This triggered a defect in routers of a specific model, causing their routing process to fail. We previously communicated this defect was unknown; this is incorrect, as after further investigation we found that this defect was previously known, however it was not known to affect routers in these roles. During a routing failure these routers are configured to automatically redirect traffic away to minimize congestion and traffic loss, however, this results in some packet loss while the network reconverges onto new paths. This behavior worked as intended to reduce the potential impact of the issue, as repeated widespread routing process failures have the potential to create cascade failures in the backbone network. # REMEDIATION AND PREVENTION Once the nature and scope of the problem became clear, Google engineers isolated the new set of routers from the network to prevent invalid routes being sent to the backbone routers. Once it was confirmed that affected routers were healthy and no longer had invalid routes, and impact for most services had ended, engineers began work to return traffic back to the routers that had rebooted. During this mitigation work to return traffic to a large number of routers, congestion caused a temporary period of increased loss and latency. Once the rebooted routers were back in the traffic path and the network had reconverged, the incident was considered mitigated. In addition to fixing the underlying cause that resulted in invalid routes to trigger routing process failures on specific routers and repairing the bug in the vendor OS, we will be implementing changes to prevent and reduce the impact of this type of failure in several ways: 1\. Improve internal tooling for redirecting traffic from routers to reduce time to mitigation for issues with widespread network impact. 2\. Improve testing and release process of new router builds to ensure that topology changes for router roles are identified prior to being connected to the backbone network. In addition to these changes, we are also working on long term architectural changes to help prevent issues of this type in the future. These changes will create well defined functional domains in the backbone network to allow for more consistent enforcement of route policies, limiting the scale of potential impact. These policies would provide better systematic protection against routes propagated through the network. # DETAILED DESCRIPTION OF IMPACT On Wednesday 17 March 2021 from 08:20 to 12:50 US/Pacific, Google Cloud Networking increased latency, packet loss, and service unavailable errors for traffic between regions and from Google to external endpoints including on-premises environments and the public internet. The issue was mitigated when the source of the invalid routes was isolated by 11:00, and work to redirect traffic back to the affected routers began. During this time, the manual one-time mitigation to return traffic to a large number of routers caused a temporary period of congestion, leading to increased loss and latency between 11:13 and 11:24. Additionally, a set of faulty routers in us-east4 incorrectly had traffic routed to them as part of this mitigation work, which resulted in further impact to the network in that region between 11:08 and 11:59. Finally, Cloud Interconnect had extended impact until 12:50 due to a lack of router vendor redundancy in some interconnect locations. #### Compute Engine VM to VM inter-regional traffic via public IP’s experienced intermittent packet loss with peaks of up to 42.6%. VM to VM inter-regional traffic via private IP’s experienced intermittent packet loss with peaks of up to 15.6%. Connectivity within a zone was not impacted. The period of impact was between 08:20 and 11:59. #### Cloud Load Balancing Requests to Cloud load balancers and Cloud CDN experienced increased timeouts, errors of up to 25%, and additional latency between 08:20 and 10:43. #### Cloud Interconnect Cloud interconnect experienced intermittent packet loss for interconnects, with peaks of up to 100% loss lasting several minutes between 08:20 and 12:50. Some interconnect locations did not have sufficient vendor redundancy for routers, resulting in a longer period of impact during traffic redirection. #### Cloud VPN Up to 13.5% of Cloud VPN tunnels experienced intermittent connectivity loss between 08:29 and 10:46. #### Kubernetes Engine Zonal clusters were impacted due to the impact to Cloud Networking and Compute Engine and experienced increased latency, errors, and packet loss for requests to the Kubernetes control plane. Regional clusters were unaffected due to master node redundancy. #### App Engine Flex Some App Engine Flex traffic experienced increased latency during the incident. #### Cloud Spanner Cloud Spanner experienced increased latency and increased DEADLINE_EXCEEDED errors in us-central1, us-east1, and europe-west1 from 08:50 to 11:45. # ADDITIONAL DETAILS The end time used in the preliminary incident statement was incorrect, as some services had lingering impact after the issue was mitigated. The corrected details for impact times are contained in the above report." />
 
         <TextView
-            android:id="@+id/uri"
+            android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="170dp"
-            tools:layout_editor_absoluteY="40dp" />
+            android:layout_marginBottom="8dp"
+            tools:textColor="@android:color/holo_green_dark"
+            app:layout_constraintBottom_toTopOf="@+id/affected_product"
+            app:layout_constraintEnd_toEndOf="@+id/pub_date"
+            tools:text="status: AVAILABLE" />
 
+        <Button
+            android:id="@+id/button_updates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Updates"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/description"
+            app:layout_constraintStart_toStartOf="@+id/description" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

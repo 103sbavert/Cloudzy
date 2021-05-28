@@ -6,8 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.dbtechprojects.cloudstatustest.model.AwsItem
+import com.dbtechprojects.cloudstatustest.model.GcpItem
 
-@Database(entities = [AwsItem::class], version = 1, exportSchema = false)
+@Database(entities = [AwsItem::class, GcpItem::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class CacheDatabase : RoomDatabase() {
 

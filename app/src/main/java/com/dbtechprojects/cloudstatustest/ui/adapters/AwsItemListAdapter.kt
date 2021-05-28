@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dbtechprojects.cloudstatustest.databinding.RowItemAwsBinding
 import com.dbtechprojects.cloudstatustest.model.AwsItem
 
-class AwsItemListAdapter : ListAdapter<AwsItem, AwsItemListAdapter.AwsItemViewHolder>(RecentQueriesDiffUtil()) {
+class AwsItemListAdapter : ListAdapter<AwsItem, AwsItemListAdapter.AwsItemViewHolder>(AwsAdapterDiffUtil()) {
 
     class AwsItemViewHolder(private val binding: RowItemAwsBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -42,7 +42,7 @@ class AwsItemListAdapter : ListAdapter<AwsItem, AwsItemListAdapter.AwsItemViewHo
 
 }
 
-class RecentQueriesDiffUtil : DiffUtil.ItemCallback<AwsItem>() {
+class AwsAdapterDiffUtil : DiffUtil.ItemCallback<AwsItem>() {
 
     override fun areItemsTheSame(oldItem: AwsItem, newItem: AwsItem): Boolean {
         return oldItem.title == newItem.title

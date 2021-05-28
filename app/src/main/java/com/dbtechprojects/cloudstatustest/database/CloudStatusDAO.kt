@@ -6,13 +6,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dbtechprojects.cloudstatustest.model.AwsItem
+import com.dbtechprojects.cloudstatustest.model.GcpItem
 
 @Dao
 interface CloudStatusDAO {
 
     // AWS
-    @Query("SELECT * FROM awsItems")
-    fun getAwsEventsLiveData(): LiveData<List<AwsItem>>
     @Query("SELECT * FROM awsItems")
     suspend fun getAwsEvents(): List<AwsItem>
 
@@ -22,23 +21,13 @@ interface CloudStatusDAO {
     @Query("DELETE FROM awsItems")
     suspend fun deleteAllAwsItems()
 
-    // GCP
-//    @Query("SELECT * FROM gcpItems")
-//    fun getGcpEvents(): Flow<List<GcpDbItem>>
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertGcpItem(item: GcpDbItem)
-//
-//    @Query("DELETE FROM gcpItems")
-//    suspend fun deleteAllGcpItems()
+    // AWS
+    @Query("SELECT * FROM gcpItems")
+    suspend fun getGcpEvents(): List<GcpItem>
 
-    // WorkManager Queries
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertGcpItem(item: GcpItem)
 
-    // first AWS Event
-    @Query("SELECT * FROM awsItems LIMIT :limit")
-    fun getLatestAwsEvent(limit: Int): List<AwsItem>
-
-    // first GCP Feed
-//    @Query("SELECT * FROM gcpItems LIMIT :limit")
-//    fun getLatestGcpEvent(limit: Int): List<GcpDbItem>
+    @Query("DELETE FROM gcpItems")
+    suspend fun deleteAllGcpItems()
 }

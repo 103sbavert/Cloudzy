@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 interface AwsApiInterface {
     @GET("/rss/all.rss")
-    suspend fun getAwsCall(): Response<AWSFeed>
+    suspend fun getAwsResponse(): Response<AWSFeed>
 }
 
 

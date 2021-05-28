@@ -6,12 +6,10 @@ import com.dbtechprojects.cloudstatustest.api.AzureApiInterface
 import com.dbtechprojects.cloudstatustest.api.GcpApiInterface
 import com.dbtechprojects.cloudstatustest.database.CacheDatabase
 import com.dbtechprojects.cloudstatustest.model.AwsItem
-import com.dbtechprojects.cloudstatustest.model.AzureFeed
-import kotlinx.coroutines.CoroutineScope
+import com.dbtechprojects.cloudstatustest.model.GcpItem
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 import javax.inject.Inject
 
 private const val TAG = "Main Repository"
@@ -22,7 +20,7 @@ constructor(
     private var awsapi: AwsApiInterface,
     private var azureapi: AzureApiInterface,
     private var gcpapi: GcpApiInterface,
-    private val database: CacheDatabase
+    private val cacheDtabase: CacheDatabase
 ) {
     enum class State {
         SUCCESS,
@@ -34,7 +32,7 @@ constructor(
     suspend fun fetchFromAwsApi() {
         withContext(IO) {
             try {
-                awsapi.getAwsCall().body()?.channel?.itemList?.let { putAwsItemsInDb(it) }
+                awsapi.getAwsResponse().body()?.channel?.itemList?.let { putAwsItemsInDb(it) }
                 awsApiFetchResult.postValue(State.SUCCESS)
             } catch (e: Exception) {
                 awsApiFetchResult.postValue(State.FAILURE)
@@ -45,14 +43,31 @@ constructor(
     private suspend fun putAwsItemsInDb(awsItems: List<AwsItem>) {
         withContext(Default) {
             for (it in awsItems) {
-                getDatabaseDao().insertAwsItem(it)
+                getCacheDatabaseDao().insertAwsItem(it)
             }
         }
     }
 
-    suspend fun getAzureEvent(): Response<AzureFeed> = azureapi.getAzureEvent()
+    private val gcpApiFetchResult by lazy { MutableLiveData<State>() }
 
-    fun getGcpEvent() = gcpapi.getGcpEvent()
+    suspend fun fetchFromGcpApi() {
+        withContext(IO) {
+            try {
+                gcpapi.getGcpResponse().body()?.let { putGcpItemsInDb(it) }
+                gcpApiFetchResult.postValue(State.SUCCESS)
+            } catch (e: Exception) {
+                gcpApiFetchResult.postValue(State.FAILURE)
+            }
+        }
+    }
 
-    fun getDatabaseDao() = database.getDao()
+    private suspend fun putGcpItemsInDb(gcpItems: List<GcpItem>) {
+        withContext(Default) {
+            for (it in gcpItems) {
+                getCacheDatabaseDao().insertGcpItem(it)
+            }
+        }
+    }
+
+    fun getCacheDatabaseDao() = cacheDtabase.getDao()
 }
