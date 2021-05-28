@@ -55,7 +55,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), AdapterView.OnIte
             val status = it.getString("Specific Notification Selection", "")
             Log.d(TAG, "spinner status : ${status.toString()}")
 
-            if (status.isNullOrEmpty()){
+            if (status.isNullOrEmpty()) {
                 // set to default
                 binding.settingsProductNotificationsSelectorDropDown.setSelection(3)
 
@@ -72,7 +72,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), AdapterView.OnIte
             pref.let {
                 val prefEdit = it.edit()
                 if (prefEdit != null) {
-                    if (isChecked){
+                    if (isChecked) {
                         /* check box is checked so we will set preferences value to 1 for Disabled, this will then cancel all WorkManager tasks
                          when MainActivity is next created */
                         prefEdit.putString("Notification_Status", "1")
@@ -116,7 +116,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), AdapterView.OnIte
         }
 
     }
-
 
 
     // Specific notification settings will be set as follows in shared preferences

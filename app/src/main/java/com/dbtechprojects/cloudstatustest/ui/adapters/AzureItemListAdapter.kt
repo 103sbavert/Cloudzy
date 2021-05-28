@@ -1,4 +1,5 @@
 package com.dbtechprojects.cloudstatustest.ui.adapters
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ class AzureItemListAdapter(private var list: List<AzureItem>) : RecyclerView.Ada
     class AzureItemViewHolder(private val binding: RowItemAzureBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: AzureItem) {
-            //
+            // TODO: YET TO BE IMPLEMENTED
         }
 
         companion object {

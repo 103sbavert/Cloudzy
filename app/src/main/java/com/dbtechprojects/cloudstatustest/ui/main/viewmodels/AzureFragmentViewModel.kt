@@ -10,7 +10,4 @@ private const val TAG = "AzureViewModel"
 @HiltViewModel
 class AzureFragmentViewModel
 @Inject
-constructor(private val mainRepository: MainRepository) : ViewModel() {
-
-
-}
+constructor(private val mainRepository: MainRepository) : ViewModel()

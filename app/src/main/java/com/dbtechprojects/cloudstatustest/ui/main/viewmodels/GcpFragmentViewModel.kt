@@ -10,7 +10,4 @@ private const val TAG = "GcpViewModel"
 @HiltViewModel
 class GcpFragmentViewModel
 @Inject
-constructor(private val mainRepository: MainRepository) : ViewModel() {
-
-
-}
+constructor(private val mainRepository: MainRepository) : ViewModel()

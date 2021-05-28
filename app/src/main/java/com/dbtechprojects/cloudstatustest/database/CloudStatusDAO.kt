@@ -12,7 +12,9 @@ interface CloudStatusDAO {
 
     // AWS
     @Query("SELECT * FROM awsItems")
-    fun getAwsEvents(): LiveData<List<AwsItem>>
+    fun getAwsEventsLiveData(): LiveData<List<AwsItem>>
+    @Query("SELECT * FROM awsItems")
+    suspend fun getAwsEvents(): List<AwsItem>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAwsItem(item: AwsItem)

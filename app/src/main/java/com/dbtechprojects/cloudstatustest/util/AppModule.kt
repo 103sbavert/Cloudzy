@@ -49,7 +49,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideMainRepository(awsApi: AwsApiInterface, azureApi: AzureApiInterface, gcpApi: GcpApiInterface, database: CacheDatabase) = MainRepository(awsApi, azureApi, gcpApi, database)
+    fun provideMainRepository(awsApi: AwsApiInterface, azureApi: AzureApiInterface, gcpApi: GcpApiInterface, database: CacheDatabase) =
+        MainRepository(awsApi, azureApi, gcpApi, database)
 
     @Provides
     fun provideCacheDb(@ApplicationContext context: Context): CacheDatabase {

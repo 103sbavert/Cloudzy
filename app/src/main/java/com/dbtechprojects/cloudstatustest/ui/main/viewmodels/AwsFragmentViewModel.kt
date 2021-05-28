@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.dbtechprojects.cloudstatustest.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val TAG = "MainViewModel"
@@ -15,14 +16,19 @@ private const val TAG = "MainViewModel"
 @HiltViewModel
 class MainFragmentViewModel
 @Inject
-constructor(private val mainRepository: MainRepository, @ApplicationContext  private val context: Context) : ViewModel() {
+constructor(private val repository: MainRepository, @ApplicationContext private val context: Context) : ViewModel() {
 
-    private val dao = mainRepository.getDatabaseDao()
-    val awsEvents = dao.getAwsEvents()
+    private val dao = repository.getDatabaseDao()
+    val awsEvents = dao.getAwsEventsLiveData()
+    val fetchResult = repository.awsApiFetchResult
 
     init {
         fetchResults()
     }
 
-    fun fetchResults() = mainRepository.fetchFromAwsApi(viewModelScope)
+    fun fetchResults() {
+        viewModelScope.launch {
+            repository.fetchFromAwsApi()
+        }
+    }
 }

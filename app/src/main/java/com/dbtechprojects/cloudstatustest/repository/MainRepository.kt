@@ -5,13 +5,12 @@ import com.dbtechprojects.cloudstatustest.api.AwsApiInterface
 import com.dbtechprojects.cloudstatustest.api.AzureApiInterface
 import com.dbtechprojects.cloudstatustest.api.GcpApiInterface
 import com.dbtechprojects.cloudstatustest.database.CacheDatabase
-import com.dbtechprojects.cloudstatustest.model.AWSFeed
 import com.dbtechprojects.cloudstatustest.model.AwsItem
 import com.dbtechprojects.cloudstatustest.model.AzureFeed
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -32,25 +31,22 @@ constructor(
 
     val awsApiFetchResult by lazy { MutableLiveData<State>() }
 
-    fun fetchFromAwsApi(coroutineScope: CoroutineScope) {
-        val call = awsapi.getAwsCall()
-        call.enqueue(object : Callback<AWSFeed> {
-            override fun onResponse(call: Call<AWSFeed>, response: Response<AWSFeed>) {
-                if (response.isSuccessful) {
-                    response.body()?.channel?.itemList?.let { putAwsItemsInDb(coroutineScope, it) }
-                    awsApiFetchResult.value = State.SUCCESS
-                } else awsApiFetchResult.value = State.FAILURE
+    suspend fun fetchFromAwsApi() {
+        withContext(IO) {
+            try {
+                awsapi.getAwsCall().body()?.channel?.itemList?.let { putAwsItemsInDb(it) }
+                awsApiFetchResult.postValue(State.SUCCESS)
+            } catch (e: Exception) {
+                awsApiFetchResult.postValue(State.FAILURE)
             }
-
-            override fun onFailure(call: Call<AWSFeed>, t: Throwable) {
-                awsApiFetchResult.value = State.FAILURE
-            }
-        })
+        }
     }
 
-    private fun putAwsItemsInDb(coroutineScope: CoroutineScope, awsItems: List<AwsItem>) {
-        coroutineScope.launch {
-            awsItems.forEach { getDatabaseDao().insertAwsItem(it) }
+    private suspend fun putAwsItemsInDb(awsItems: List<AwsItem>) {
+        withContext(Default) {
+            for (it in awsItems) {
+                getDatabaseDao().insertAwsItem(it)
+            }
         }
     }
 

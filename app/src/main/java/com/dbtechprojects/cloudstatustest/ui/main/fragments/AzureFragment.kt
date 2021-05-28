@@ -1,4 +1,5 @@
 package com.dbtechprojects.cloudstatustest.ui.main.fragments
+
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,7 +9,6 @@ import com.dbtechprojects.cloudstatustest.databinding.FragmentAzureBinding
 import com.dbtechprojects.cloudstatustest.ui.adapters.AzureItemListAdapter
 import com.dbtechprojects.cloudstatustest.ui.main.MainActivity
 import com.dbtechprojects.cloudstatustest.ui.main.viewmodels.AzureFragmentViewModel
-import com.dbtechprojects.cloudstatustest.ui.main.viewmodels.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

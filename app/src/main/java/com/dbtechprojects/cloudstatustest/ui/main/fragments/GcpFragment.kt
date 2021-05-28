@@ -1,6 +1,6 @@
 package com.dbtechprojects.cloudstatustest.ui.main.fragments
+
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -9,7 +9,6 @@ import com.dbtechprojects.cloudstatustest.databinding.FragmentGcpBinding
 import com.dbtechprojects.cloudstatustest.ui.adapters.GcpItemListAdapter
 import com.dbtechprojects.cloudstatustest.ui.main.MainActivity
 import com.dbtechprojects.cloudstatustest.ui.main.viewmodels.GcpFragmentViewModel
-import com.dbtechprojects.cloudstatustest.ui.main.viewmodels.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
