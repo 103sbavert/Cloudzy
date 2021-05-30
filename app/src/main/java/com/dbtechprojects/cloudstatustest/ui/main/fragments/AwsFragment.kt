@@ -2,6 +2,7 @@ package com.dbtechprojects.cloudstatustest.ui.main.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.dbtechprojects.cloudstatustest.R
@@ -19,6 +20,7 @@ class AwsFragment : Fragment(R.layout.fragment_aws) {
     }
     private val viewModel: MainFragmentViewModel by viewModels()
     private var awsItemListAdapter = AwsItemListAdapter()
+    private var isFirstTime = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,8 +30,9 @@ class AwsFragment : Fragment(R.layout.fragment_aws) {
 
         viewModel.awsEvents.observe(viewLifecycleOwner) {
             awsItemListAdapter.submitList(it)
+            if (!isFirstTime) Toast.makeText(mainActivity, "New Results Found", Toast.LENGTH_SHORT).show()
+            isFirstTime = false
         }
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

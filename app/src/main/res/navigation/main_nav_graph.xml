@@ -26,5 +26,5 @@
         android:id="@+id/settingsFragment"
         android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings"/>
+        tools:layout="@layout/fragment_settings" />
 </navigation>

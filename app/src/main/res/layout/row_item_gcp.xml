@@ -80,16 +80,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            tools:textColor="@android:color/holo_green_dark"
             app:layout_constraintBottom_toTopOf="@+id/affected_product"
             app:layout_constraintEnd_toEndOf="@+id/pub_date"
-            tools:text="status: AVAILABLE" />
+            tools:text="Status: AVAILABLE"
+            tools:textColor="@android:color/holo_green_dark" />
 
         <Button
             android:id="@+id/button_updates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Updates"
+            android:text="@string/updates_button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/description"
             app:layout_constraintStart_toStartOf="@+id/description" />

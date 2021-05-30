@@ -1,6 +1,5 @@
 package com.dbtechprojects.cloudstatustest.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -15,7 +14,7 @@ class GcpItemListAdapter : ListAdapter<GcpItem, GcpItemListAdapter.GcpItemViewHo
 
         fun bind(item: GcpItem) {
             binding.title.text = item.externalDesc
-            binding.description.text = item.mostRecentUpdate?.text ?: ""
+            binding.description.text = item.mostRecentUpdate?.text
             binding.severity.text = item.severity
             binding.pubDate.text = item.created
             binding.statusImpact.text = item.statusImpact

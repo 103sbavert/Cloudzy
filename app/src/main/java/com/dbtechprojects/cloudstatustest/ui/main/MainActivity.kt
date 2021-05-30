@@ -1,11 +1,9 @@
 package com.dbtechprojects.cloudstatustest.ui.main
 
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
@@ -25,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     }
     lateinit var bottomNavigationView: BottomNavigationView
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,7 +45,6 @@ class MainActivity : AppCompatActivity() {
 
 
     // setup menu
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true

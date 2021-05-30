@@ -7,6 +7,7 @@ import com.tickaroo.tikxml.annotation.*
 
 @Xml(name = "rss")
 data class AWSFeed(
+
     @Attribute
     val version: String? = null,
 
@@ -16,6 +17,7 @@ data class AWSFeed(
 
 @Xml(name = "channel")
 data class Channel(
+
     @PropertyElement
     val title: String? = null,
 
@@ -44,9 +46,6 @@ data class Channel(
 @Xml(name = "item")
 @Entity(tableName = "awsItems")
 data class AwsItem(
-/*    @PrimaryKey
-    @Attribute
-    val id: Int? = null,*/
 
     @ColumnInfo(name = "title")
     @PropertyElement

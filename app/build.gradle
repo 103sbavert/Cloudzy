@@ -76,6 +76,8 @@ dependencies {
 
     //workmanager
     implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation 'androidx.hilt:hilt-work:1.0.0'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
 
     //dagger-hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"

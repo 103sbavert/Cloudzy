@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface GcpApiInterface {
+
     @GET("/incidents.json")
     suspend fun getGcpResponse(): Response<List<GcpItem>>
 }
