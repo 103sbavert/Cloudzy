@@ -3,28 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/awsFragment">
-
+    app:startDestination="@id/main_fragment">
     <fragment
-        android:id="@+id/awsFragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AwsFragment"
-        android:label="fragment_aws"
-        tools:layout="@layout/fragment_aws" />
-
-    <fragment
-        android:id="@+id/azureFragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AzureFragment"
-        android:label="fragment_Azure"
-        tools:layout="@layout/fragment_azure" />
-
-    <fragment
-        android:id="@+id/gcpFragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.GcpFragment"
-        android:label="fragment_Gcp"
-        tools:layout="@layout/fragment_gcp" />
-    <fragment
-        android:id="@+id/settingsFragment"
+        android:id="@+id/settings_fragment"
         android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.SettingsFragment"
-        android:label="SettingsFragment"
+        android:label="Settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.MainFragment"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_main" />
 </navigation>

@@ -9,4 +9,10 @@
     <string name="notification_title">New items were found</string>
     <string name="notification_text">New items were found for %1$s. Click on this notification to check them out.</string>
     <string name="updates_button_text">Updates</string>
+    <string name="tools_severity_text">Severity: <font color="#d9b329"> Medium </font></string>
+    <string name="severity_text">Severity: &lt;font color=\"%2$s\"> %1$s &lt;font></string>
+    <string name="id_text">id: %1$s</string>
+    <string name="status_impact_text">Status Impact: %1$s</string>
+    <string name="service_key_text">Service Key: %1$s</string>
+    <string name="service_name_text">Service Name: %1$s</string>
 </resources>

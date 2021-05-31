@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/gcpFragment"
-        android:title="GCP Feed"
-        android:icon="@drawable/ic_baseline_new_releases_24" />
+        android:id="@+id/gcp_fragment"
+        android:icon="@drawable/ic_baseline_new_releases_24"
+        android:title="GCP Feed" />
     <item
-        android:id="@+id/awsFragment"
-        android:title="AWS Feed"
-        android:icon="@drawable/ic_baseline_new_releases_24" />
+        android:id="@+id/aws_fragment"
+        android:icon="@drawable/ic_baseline_new_releases_24"
+        android:title="AWS Feed" />
     <item
-        android:id="@+id/azureFragment"
-        android:title="Azure Feed"
-        android:icon="@drawable/ic_baseline_new_releases_24" />
+        android:id="@+id/azure_fragment"
+        android:icon="@drawable/ic_baseline_new_releases_24"
+        android:title="Azure Feed" />
 </menu>

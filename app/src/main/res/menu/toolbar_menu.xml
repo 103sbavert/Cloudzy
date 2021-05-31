@@ -5,10 +5,10 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="300"
-        android:title="User"
+        android:id="@+id/settings_fragment"
         android:icon="@drawable/ic_baseline_settings_24"
+        android:orderInCategory="300"
+        android:title="Settings"
         app:showAsAction="ifRoom" />
 
 </menu>

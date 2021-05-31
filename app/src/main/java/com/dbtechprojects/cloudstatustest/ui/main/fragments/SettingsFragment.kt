@@ -35,6 +35,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), AdapterView.OnIte
 
     }
 
+
     private fun setupProductNotificationSelector() {
         // declare list of options
         val options = listOf<String>("AWS Notifications Only", "GCP Notifications Only", "Azure Notifications Only", "All Notifications")
