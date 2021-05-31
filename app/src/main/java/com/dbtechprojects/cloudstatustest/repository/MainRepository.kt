@@ -1,13 +1,11 @@
 package com.dbtechprojects.cloudstatustest.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dbtechprojects.cloudstatustest.api.AwsApiInterface
 import com.dbtechprojects.cloudstatustest.api.AzureApiInterface
 import com.dbtechprojects.cloudstatustest.api.GcpApiInterface
 import com.dbtechprojects.cloudstatustest.database.CacheDatabase
-import com.dbtechprojects.cloudstatustest.model.AwsItem
-import com.dbtechprojects.cloudstatustest.model.GcpItem
-import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -17,71 +15,61 @@ private const val TAG = "Main Repository"
 class MainRepository
 @Inject
 constructor(
-    private var awsapi: AwsApiInterface,
-    private var azureapi: AzureApiInterface,
-    private var gcpapi: GcpApiInterface,
+    private var awsApi: AwsApiInterface,
+    private var azureApi: AzureApiInterface,
+    private var gcpApi: GcpApiInterface,
     private val cacheDatabase: CacheDatabase
 ) {
     enum class State {
         SUCCESS,
+        LOADING,
         FAILURE
     }
 
-    val awsApiFetchResult by lazy { MutableLiveData<State>() }
+    private val _awsApiFetchResult = MutableLiveData<State>()
+    val awsApiFetchResult: LiveData<State>
+        get() = _awsApiFetchResult
 
     suspend fun fetchFromAwsApi() {
         withContext(IO) {
             try {
+                _awsApiFetchResult.postValue(State.LOADING)
 
                 // fetch the results from the api and put each fetched item in the db
-                awsapi.getAwsResponse().body()?.channel?.itemList?.let { putAwsItemsInDb(it) }
+                awsApi.getAwsResponse().body()?.channel?.itemList?.let { getCacheDatabaseDao().insertAwsItem(it) }
 
                 // post State.SUCCESS if the task above is successfully completed
-                awsApiFetchResult.postValue(State.SUCCESS)
+                _awsApiFetchResult.postValue(State.SUCCESS)
             } catch (e: Exception) {
 
                 // post State.Failure if the task above fails
-                awsApiFetchResult.postValue(State.FAILURE)
+                _awsApiFetchResult.postValue(State.FAILURE)
             }
         }
     }
 
-    // put each item from the list in the db one by one using the method from the dao (duplicate items are ignored)
-    private suspend fun putAwsItemsInDb(awsItems: List<AwsItem>) {
-        withContext(Default) {
-            for (it in awsItems) {
-                getCacheDatabaseDao().insertAwsItem(it)
-            }
-        }
-    }
-
-    private val gcpApiFetchResult by lazy { MutableLiveData<State>() }
+    private val _gcpApiFetchResult = MutableLiveData<State>()
+    val gcpApiFetchResult: LiveData<State>
+        get() = _gcpApiFetchResult
 
     suspend fun fetchFromGcpApi() {
         withContext(IO) {
             try {
+                _gcpApiFetchResult.postValue(State.LOADING)
 
                 // fetch the results from the api and put each fetched item in the db
-                gcpapi.getGcpResponse().body()?.let { putGcpItemsInDb(it) }
+                gcpApi.getGcpResponse().body()?.let { getCacheDatabaseDao().insertGcpItem(it) }
 
                 // post State.SUCCESS if the task above is successfully completed
-                gcpApiFetchResult.postValue(State.SUCCESS)
+                _gcpApiFetchResult.postValue(State.SUCCESS)
             } catch (e: Exception) {
 
                 // post State.Failure if the task above fails
-                gcpApiFetchResult.postValue(State.FAILURE)
+                _gcpApiFetchResult.postValue(State.FAILURE)
             }
         }
     }
 
-    // put each item from the list in the db one by one using the method from the dao (duplicate items are ignored)
-    private suspend fun putGcpItemsInDb(gcpItems: List<GcpItem>) {
-        withContext(Default) {
-            for (it in gcpItems) {
-                getCacheDatabaseDao().insertGcpItem(it)
-            }
-        }
-    }
 
     fun getCacheDatabaseDao() = cacheDatabase.getDao()
 }

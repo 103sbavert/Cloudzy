@@ -19,7 +19,7 @@ interface CloudStatusDAO {
     fun getAwsEventsLiveData(): LiveData<List<AwsItem>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAwsItem(item: AwsItem)
+    suspend fun insertAwsItem(item: List<AwsItem>)
 
     @Query("DELETE FROM awsItems")
     suspend fun deleteAllAwsItems()
@@ -32,7 +32,7 @@ interface CloudStatusDAO {
     fun getGcpEventsLiveData(): LiveData<List<GcpItem>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertGcpItem(item: GcpItem)
+    suspend fun insertGcpItem(item: List<GcpItem>)
 
     @Query("DELETE FROM gcpItems")
     suspend fun deleteAllGcpItems()
