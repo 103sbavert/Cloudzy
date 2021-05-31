@@ -49,7 +49,6 @@ class GcpItemListAdapter : ListAdapter<GcpItem, GcpItemListAdapter.GcpItemViewHo
 
             // convert the color to a hex code and get rid of the first to characters (because they represent the alpha)
             val color = "#${Integer.toHexString(colorInt).substring(2)}"
-            Log.e("TAG", "setSeverityText: $color")
 
             // use HTML Compat to convert plain text into formatted text
             val text = HtmlCompat.fromHtml(

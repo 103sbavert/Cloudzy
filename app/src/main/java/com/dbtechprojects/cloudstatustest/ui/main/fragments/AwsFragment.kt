@@ -1,6 +1,7 @@
 package com.dbtechprojects.cloudstatustest.ui.main.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,18 +13,19 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AwsFragment : Fragment(R.layout.fragment_aws) {
-    private lateinit var binding: FragmentAwsBinding
-    private val mainFragment by lazy {
-        requireParentFragment().requireParentFragment() as MainFragment
-    }
-    private val viewModel: MainFragmentViewModel by viewModels()
-    private var awsItemListAdapter = AwsItemListAdapter()
 
+    private lateinit var binding: FragmentAwsBinding
+    private lateinit var mainFragment: MainFragment
+    private val viewModel: MainFragmentViewModel by viewModels()
+    private val awsItemListAdapter by lazy {
+        AwsItemListAdapter()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentAwsBinding.bind(view)
         binding.awsFeed.adapter = awsItemListAdapter
+        mainFragment = requireParentFragment().requireParentFragment() as MainFragment
 
         viewModel.awsEvents.observe(viewLifecycleOwner) {
             awsItemListAdapter.submitList(it)
@@ -32,11 +34,9 @@ class AwsFragment : Fragment(R.layout.fragment_aws) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mainFragment.bottomNavBar.setOnNavigationItemReselectedListener {
-            //if (findNavController().currentDestination?.id == R.id.aws_fragment)
+        mainFragment.binding.bottomNavigationBar.setOnNavigationItemReselectedListener {
             viewModel.fetchResults()
             binding.awsFeed.smoothScrollToPosition(0)
-            //else findNavController().navigate(R.id.aws_fragment)
         }
     }
 }

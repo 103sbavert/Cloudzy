@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/main_fragment">
-    <fragment
-        android:id="@+id/settings_fragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.SettingsFragment"
-        android:label="Settings"
-        tools:layout="@layout/fragment_settings" />
+
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.MainFragment"
         android:label="Welcome"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

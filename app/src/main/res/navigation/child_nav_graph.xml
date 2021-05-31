@@ -2,24 +2,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav_graph"
+    android:id="@+id/child_nav_graph"
     app:startDestination="@id/aws_fragment">
-
-    <fragment
-        android:id="@+id/aws_fragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AwsFragment"
-        android:label="AWS"
-        tools:layout="@layout/fragment_aws" />
-
-    <fragment
-        android:id="@+id/azure_fragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AzureFragment"
-        android:label="Azure"
-        tools:layout="@layout/fragment_azure" />
 
     <fragment
         android:id="@+id/gcp_fragment"
         android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.GcpFragment"
-        android:label="GCP"
+        android:label="fragment_gcp"
         tools:layout="@layout/fragment_gcp" />
+    <fragment
+        android:id="@+id/aws_fragment"
+        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AwsFragment"
+        android:label="fragment_aws"
+        tools:layout="@layout/fragment_aws" />
+    <fragment
+        android:id="@+id/azure_fragment"
+        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AzureFragment"
+        android:label="fragment_azure"
+        tools:layout="@layout/fragment_azure" />
 </navigation>

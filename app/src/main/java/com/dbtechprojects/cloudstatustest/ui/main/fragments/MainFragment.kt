@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -18,30 +19,25 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private lateinit var binding: FragmentMainBinding
-    private val mainNavController by lazy {
-        findNavController()
-    }
-    private val mainActivity by lazy {
-        requireActivity() as MainActivity
-    }
-    private val navHostFragment by lazy {
-        (childFragmentManager.findFragmentById(binding.childNavHost.id) as NavHostFragment)
-    }
-    private val childNavController by lazy {
-        navHostFragment.navController
-    }
-    val bottomNavBar by lazy {
-        binding.bottomNavigationBar
-    }
+    lateinit var binding: FragmentMainBinding
+    private lateinit var mainNavController: NavController
+    private lateinit var mainActivity: MainActivity
+    private lateinit var navHostFragment: NavHostFragment
+    private lateinit var childNavController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentMainBinding.bind(view)
-        setHasOptionsMenu(true)
-        setUpBottomNavigationBar()
-    }
 
+        binding = FragmentMainBinding.bind(view)
+        mainNavController = findNavController()
+        mainActivity = requireActivity() as MainActivity
+        navHostFragment = childFragmentManager.findFragmentById(binding.childNavHost.id) as NavHostFragment
+        childNavController = navHostFragment.navController
+
+        setHasOptionsMenu(true)
+
+        NavigationUI.setupWithNavController(binding.bottomNavigationBar, childNavController)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu, menu)
@@ -49,11 +45,5 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, mainNavController)
-    }
-
-    private fun setUpBottomNavigationBar() {
-        Log.e("TAG", "setup called")
-        println(bottomNavBar.id)
-        NavigationUI.setupWithNavController(bottomNavBar, childNavController)
     }
 }
