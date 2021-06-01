@@ -54,25 +54,25 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="mainFragment">
+                  <entry key="main_fragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-71" />
-                            <option name="y" value="55" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="settingsFragment">
+                  <entry key="settings_fragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="126" />
-                            <option name="y" value="51" />
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>

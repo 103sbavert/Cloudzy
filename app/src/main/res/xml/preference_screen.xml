@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="Notifications">
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:enabled="true"
+            app:icon="@drawable/ic_baseline_new_releases_24"
+            app:key="@string/gcp_notif_pref_key"
+            app:summary="@string/gcp_notif_pref_desc"
+            app:title="GCP Updates Notification" />
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:enabled="true"
+            app:icon="@drawable/ic_baseline_new_releases_24"
+            app:key="@string/aws_notif_pref_key"
+            app:summary="@string/aws_notif_pref_desc"
+            app:title="AWS Updates Notification" />
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:enabled="true"
+            app:icon="@drawable/ic_baseline_new_releases_24"
+            app:key="@string/azure_notif_pref_key"
+            app:summary="@string/azure_notif_pref_desc"
+            app:title="Azure Updates Notification" />
+    </PreferenceCategory>
+</PreferenceScreen>

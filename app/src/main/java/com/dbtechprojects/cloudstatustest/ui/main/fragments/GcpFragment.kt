@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.dbtechprojects.cloudstatustest.R
 import com.dbtechprojects.cloudstatustest.databinding.FragmentGcpBinding
+import com.dbtechprojects.cloudstatustest.repository.MainRepository
 import com.dbtechprojects.cloudstatustest.ui.adapters.GcpItemListAdapter
 import com.dbtechprojects.cloudstatustest.ui.main.viewmodels.GcpFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,8 +33,11 @@ class GcpFragment : Fragment(R.layout.fragment_gcp) {
         mainFragment = requireParentFragment().requireParentFragment() as MainFragment
         shouldNotifyAboutNewItems = false
 
+        binding.swipeToRefreshLayout.setOnRefreshListener {
+            viewModel.fetchResults()
+        }
         viewModel.apiFetchResult.observe(viewLifecycleOwner) {
-            Log.e("GCPFragment", "onViewCreated: $it")
+            binding.swipeToRefreshLayout.isRefreshing = it == MainRepository.State.LOADING
         }
         viewModel.feed.observe(viewLifecycleOwner) {
             feedListAdapter.submitList(it)

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.dbtechprojects.cloudstatustest.R
 import com.dbtechprojects.cloudstatustest.databinding.FragmentAwsBinding
+import com.dbtechprojects.cloudstatustest.repository.MainRepository
 import com.dbtechprojects.cloudstatustest.ui.adapters.AwsItemListAdapter
 import com.dbtechprojects.cloudstatustest.ui.main.viewmodels.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,9 +33,11 @@ class AwsFragment : Fragment(R.layout.fragment_aws) {
         mainFragment = requireParentFragment().requireParentFragment() as MainFragment
         shouldNotifyAboutNewItems = false
 
-
+        binding.swipeToRefreshLayout.setOnRefreshListener {
+            viewModel.fetchResults()
+        }
         viewModel.apiFetchResult.observe(viewLifecycleOwner) {
-            Log.e("AWSFragment", "onViewCreated: $it")
+            binding.swipeToRefreshLayout.isRefreshing = it == MainRepository.State.LOADING
         }
         viewModel.feed.observe(viewLifecycleOwner) {
             feedListAdapter.submitList(it)

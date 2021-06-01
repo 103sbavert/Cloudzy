@@ -15,4 +15,10 @@
     <string name="status_impact_text">Status Impact: %1$s</string>
     <string name="service_key_text">Service Key: %1$s</string>
     <string name="service_name_text">Service Name: %1$s</string>
+    <string name="gcp_notif_pref_desc">Check this option to get a notification whenever there\'s a new GCP update</string>
+    <string name="aws_notif_pref_desc">Check this option to get a notification whenever there\'s a new AWS update</string>
+    <string name="azure_notif_pref_desc">Check this option to get a notification whenever there\'s a new Azure update</string>
+    <string name="gcp_notif_pref_key">shouldShowGcpNotification</string>
+    <string name="aws_notif_pref_key">shouldShowAwsNotification</string>
+    <string name="azure_notif_pref_key">shouldShowAzureNotification</string>
 </resources>

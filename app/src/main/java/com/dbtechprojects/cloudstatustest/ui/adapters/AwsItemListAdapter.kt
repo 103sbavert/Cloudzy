@@ -17,7 +17,6 @@ class AwsItemListAdapter : ListAdapter<AwsItem, AwsItemListAdapter.AwsItemViewHo
             binding.description.text = item.description
             binding.pubDate.text = item.pubDate
             binding.guid.text = item.guid.text
-            binding.link.text = item.link
         }
 
         companion object {

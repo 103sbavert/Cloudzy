@@ -21,14 +21,18 @@ class AwsWorker
 constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters, private val repository: MainRepository) :
     CoroutineWorker(context, workerParams) {
 
+    private val preferences = (applicationContext as BaseApplication).preferences
+
     override suspend fun doWork() = withContext(IO) {
+
+        val shouldShowNotification = preferences.getBoolean(applicationContext.getString(R.string.aws_notif_pref_key), true)
 
         val dao = repository.getCacheDatabaseDao()
         val oldList = dao.getAwsEvents()
         repository.fetchFromAwsApi()
         val newList = dao.getAwsEvents()
 
-        if (newList != oldList) {
+        if (newList != oldList && shouldShowNotification) {
             createNotification()
         }
 

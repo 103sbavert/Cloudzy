@@ -21,14 +21,18 @@ class GcpWorker
 constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters, private val repository: MainRepository) :
     CoroutineWorker(context, workerParams) {
 
+    private val preferences = (applicationContext as BaseApplication).preferences
+
     override suspend fun doWork() = withContext(IO) {
+
+        val shouldShowNotification = preferences.getBoolean(applicationContext.getString(R.string.gcp_notif_pref_key), true)
 
         val dao = repository.getCacheDatabaseDao()
         val oldList = dao.getGcpEvents()
         repository.fetchFromGcpApi()
         val newList = dao.getGcpEvents()
 
-        if (newList != oldList) {
+        if (newList != oldList && shouldShowNotification) {
             createNotification()
         }
 
