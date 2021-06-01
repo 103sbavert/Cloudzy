@@ -5,21 +5,21 @@
         <CheckBoxPreference
             app:defaultValue="true"
             app:enabled="true"
-            app:icon="@drawable/ic_baseline_new_releases_24"
+            app:icon="@drawable/ic_gcp"
             app:key="@string/gcp_notif_pref_key"
             app:summary="@string/gcp_notif_pref_desc"
             app:title="GCP Updates Notification" />
         <CheckBoxPreference
             app:defaultValue="true"
             app:enabled="true"
-            app:icon="@drawable/ic_baseline_new_releases_24"
+            app:icon="@drawable/ic_aws"
             app:key="@string/aws_notif_pref_key"
             app:summary="@string/aws_notif_pref_desc"
             app:title="AWS Updates Notification" />
         <CheckBoxPreference
             app:defaultValue="true"
             app:enabled="true"
-            app:icon="@drawable/ic_baseline_new_releases_24"
+            app:icon="@drawable/ic_azure"
             app:key="@string/azure_notif_pref_key"
             app:summary="@string/azure_notif_pref_desc"
             app:title="Azure Updates Notification" />

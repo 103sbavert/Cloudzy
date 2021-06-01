@@ -1,6 +1,7 @@
 package com.dbtechprojects.cloudstatustest.ui.main.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -13,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import com.dbtechprojects.cloudstatustest.R
 import com.dbtechprojects.cloudstatustest.databinding.FragmentMainBinding
 import com.dbtechprojects.cloudstatustest.ui.main.MainActivity
+import com.dbtechprojects.cloudstatustest.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,6 +38,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         setHasOptionsMenu(true)
 
         NavigationUI.setupWithNavController(binding.bottomNavigationBar, childNavController)
+        when (mainActivity.intent.action) {
+            Constants.AWS_INTENT_ACTION -> childNavController.navigate(R.id.aws_fragment)
+            Constants.GCP_INTENT_ACTION -> childNavController.navigate(R.id.gcp_fragment)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

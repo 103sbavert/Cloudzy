@@ -6,8 +6,10 @@
     <string name="settings">Settings</string>
     <string name="all_notification_enabled">All Notifications Enabled</string>
     <string name="notification_channel_name">New %1$s Items</string>
-    <string name="notification_title">New items were found</string>
-    <string name="notification_text">New items were found for %1$s. Click on this notification to check them out.</string>
+    <string name="notification_title">New items for %1$s</string>
+    <string name="notification_text">
+        New items were found for %1$s. Click on this notification to check them out.
+    </string>
     <string name="updates_button_text">Updates</string>
     <string name="tools_severity_text">Severity: <font color="#d9b329"> Medium </font></string>
     <string name="severity_text">Severity: &lt;font color=\"%2$s\"> %1$s &lt;font></string>
@@ -15,9 +17,15 @@
     <string name="status_impact_text">Status Impact: %1$s</string>
     <string name="service_key_text">Service Key: %1$s</string>
     <string name="service_name_text">Service Name: %1$s</string>
-    <string name="gcp_notif_pref_desc">Check this option to get a notification whenever there\'s a new GCP update</string>
-    <string name="aws_notif_pref_desc">Check this option to get a notification whenever there\'s a new AWS update</string>
-    <string name="azure_notif_pref_desc">Check this option to get a notification whenever there\'s a new Azure update</string>
+    <string name="gcp_notif_pref_desc">
+        Check this option to get a notification whenever there\'s a new GCP update
+    </string>
+    <string name="aws_notif_pref_desc">
+        Check this option to get a notification whenever there\'s a new AWS update
+    </string>
+    <string name="azure_notif_pref_desc">
+        Check this option to get a notification whenever there\'s a new Azure update
+    </string>
     <string name="gcp_notif_pref_key">shouldShowGcpNotification</string>
     <string name="aws_notif_pref_key">shouldShowAwsNotification</string>
     <string name="azure_notif_pref_key">shouldShowAzureNotification</string>
