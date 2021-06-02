@@ -5,6 +5,13 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/about_Fragment"
+        android:icon="@drawable/ic_baseline_help_24"
+        android:orderInCategory="200"
+        android:title="About"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/settings_fragment"
         android:icon="@drawable/ic_baseline_settings_24"
         android:orderInCategory="300"
