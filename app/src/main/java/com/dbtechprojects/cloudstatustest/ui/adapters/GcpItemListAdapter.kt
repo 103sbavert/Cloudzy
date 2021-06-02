@@ -9,18 +9,21 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dbtechprojects.cloudstatustest.R
 import com.dbtechprojects.cloudstatustest.databinding.RowItemGcpBinding
+import com.dbtechprojects.cloudstatustest.model.AffectedProduct
 import com.dbtechprojects.cloudstatustest.model.GcpItem
 
-class GcpItemListAdapter : ListAdapter<GcpItem, GcpItemListAdapter.GcpItemViewHolder>(GcpAdapterDiffUtil()) {
+class GcpItemListAdapter(private val onButtonClickListener: OnButtonsClickListener) :
+    ListAdapter<GcpItem, GcpItemListAdapter.GcpItemViewHolder>(GcpAdapterDiffUtil()) {
 
-    class GcpItemViewHolder(private val binding: RowItemGcpBinding) : RecyclerView.ViewHolder(binding.root) {
+    class GcpItemViewHolder(private val binding: RowItemGcpBinding, private val onButtonClickListener: OnButtonsClickListener) :
+        RecyclerView.ViewHolder(binding.root) {
 
         companion object {
-            fun inflateLayout(parent: ViewGroup): GcpItemViewHolder {
+            fun inflateLayout(parent: ViewGroup, onButtonClickListener: OnButtonsClickListener): GcpItemViewHolder {
                 parent.apply {
-                    val inflater = LayoutInflater.from(parent.context)
-                    val binding = RowItemGcpBinding.inflate(inflater, parent, false)
-                    return GcpItemViewHolder(binding)
+                    val inflater = LayoutInflater.from(context)
+                    val binding = RowItemGcpBinding.inflate(inflater, this, false)
+                    return GcpItemViewHolder(binding, onButtonClickListener)
                 }
             }
         }
@@ -33,6 +36,18 @@ class GcpItemListAdapter : ListAdapter<GcpItem, GcpItemListAdapter.GcpItemViewHo
             binding.serviceName.text = binding.root.context.getString(R.string.service_name_text, item.serviceName)
             binding.created.text = item.created
             binding.id.text = binding.root.context.getString(R.string.id_text, item.id)
+            item.affectedProducts?.let { setAffectedProductsText(it) }
+            binding.updatesButton.setOnClickListener { onButtonClickListener.onUpdatesButtonClickListener(item.id) }
+        }
+
+        private fun setAffectedProductsText(list: List<AffectedProduct>) {
+            val text = StringBuilder("Affected Products: ")
+            for (each in list.withIndex()) {
+                val affectedProduct = each.value.title
+                text.append(affectedProduct)
+                if (each.index != list.lastIndex) text.append(", ")
+            }
+            binding.affectedProducts.text = text.toString()
         }
 
         private fun setSeverityText(item: GcpItem) {
@@ -59,11 +74,15 @@ class GcpItemListAdapter : ListAdapter<GcpItem, GcpItemListAdapter.GcpItemViewHo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GcpItemViewHolder {
-        return GcpItemViewHolder.inflateLayout(parent)
+        return GcpItemViewHolder.inflateLayout(parent, onButtonClickListener)
     }
 
     override fun onBindViewHolder(holder: GcpItemViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    interface OnButtonsClickListener {
+        fun onUpdatesButtonClickListener(id: String)
     }
 }
 

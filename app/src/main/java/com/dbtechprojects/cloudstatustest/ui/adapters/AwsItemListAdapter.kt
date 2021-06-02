@@ -22,8 +22,8 @@ class AwsItemListAdapter : ListAdapter<AwsItem, AwsItemListAdapter.AwsItemViewHo
         companion object {
             fun inflateLayout(parent: ViewGroup): AwsItemViewHolder {
                 parent.apply {
-                    val inflater = LayoutInflater.from(parent.context)
-                    val binding = RowItemAwsBinding.inflate(inflater, parent, false)
+                    val inflater = LayoutInflater.from(context)
+                    val binding = RowItemAwsBinding.inflate(inflater, this, false)
                     return AwsItemViewHolder(binding)
                 }
             }
@@ -37,8 +37,6 @@ class AwsItemListAdapter : ListAdapter<AwsItem, AwsItemListAdapter.AwsItemViewHo
     override fun onBindViewHolder(holder: AwsItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-
 }
 
 class AwsAdapterDiffUtil : DiffUtil.ItemCallback<AwsItem>() {

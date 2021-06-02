@@ -1,7 +1,6 @@
 package com.dbtechprojects.cloudstatustest.ui.main.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment

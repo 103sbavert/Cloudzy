@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.fragments.AzureFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/azure_feed"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="?attr/actionBarSize"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coming Soon"
+        android:textAppearance="?textAppearanceHeadline3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/row_item_azure" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,7 +54,7 @@ constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters
 
         val notification = NotificationCompat
             .Builder(applicationContext, Constants.AWS_NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_aws)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(applicationContext.getString(R.string.notification_title, "AWS"))
             .setContentText(applicationContext.getString(R.string.notification_text, "AWS"))
             .setStyle(NotificationCompat.BigTextStyle())

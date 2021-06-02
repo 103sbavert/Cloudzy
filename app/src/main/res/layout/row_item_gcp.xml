@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?textAppearanceBody2"
-            app:layout_constraintBottom_toTopOf="@+id/service_name"
+            app:layout_constraintBottom_toTopOf="@+id/affected_Products"
             app:layout_constraintStart_toStartOf="@+id/status_impact"
             app:layout_constraintTop_toBottomOf="@+id/status_impact"
             tools:text="Service Key: 9CcrhHUcFevXPSVaSxkf" />
@@ -74,10 +74,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?textAppearanceBody2"
-            app:layout_constraintBottom_toTopOf="@+id/updates_button"
-            app:layout_constraintStart_toStartOf="@+id/severity"
-            app:layout_constraintTop_toBottomOf="@+id/service_key"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/affected_Products"
+            app:layout_constraintTop_toBottomOf="@+id/affected_Products"
             tools:text="Service Name: Google BigQuery" />
+
+        <TextView
+            android:id="@+id/affected_Products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceBody2"
+            app:layout_constraintBottom_toTopOf="@+id/service_name"
+            app:layout_constraintStart_toStartOf="@+id/service_key"
+            app:layout_constraintTop_toBottomOf="@+id/service_key"
+            tools:text="Affected Products: Google BigQuery" />
 
         <TextView
             android:id="@+id/status_impact"
@@ -86,8 +96,9 @@
             android:layout_marginTop="8dp"
             android:textAppearance="?textAppearanceBody2"
             app:layout_constraintBottom_toTopOf="@+id/service_key"
-            app:layout_constraintStart_toStartOf="@+id/external_desc"
+            app:layout_constraintStart_toStartOf="@+id/severity"
             app:layout_constraintTop_toBottomOf="@+id/external_desc"
+            app:layout_constraintVertical_bias="0.0"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="Status Impact: SERVICE_DISRUPTION" />
 
@@ -100,24 +111,10 @@
             android:text="Updates"
             app:icon="@drawable/ic_baseline_navigate_next_24"
             app:iconGravity="end"
-            app:layout_constraintEnd_toStartOf="@+id/affected_products_button"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/service_name" />
 
-        <Button
-            android:id="@+id/affected_products_button"
-            style="?materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Affected Products"
-            app:icon="@drawable/ic_baseline_navigate_next_24"
-            app:iconGravity="end"
-            app:layout_constraintBottom_toBottomOf="@+id/updates_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/updates_button"
-            app:layout_constraintTop_toTopOf="@+id/updates_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

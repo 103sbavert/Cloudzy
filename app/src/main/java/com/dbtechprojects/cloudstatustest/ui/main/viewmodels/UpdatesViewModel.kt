@@ -1,28 +1,28 @@
 package com.dbtechprojects.cloudstatustest.ui.main.viewmodels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dbtechprojects.cloudstatustest.model.Update
 import com.dbtechprojects.cloudstatustest.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainFragmentViewModel
+class UpdatesViewModel
 @Inject
 constructor(private val repository: MainRepository) : ViewModel() {
 
     private val dao = repository.getCacheDatabaseDao()
-    val feed = dao.getAwsEventsLiveData()
-    val apiFetchResult = repository.awsApiFetchResult
+    private val _updatesLiveData = MutableLiveData<List<Update>>()
+    val updatesLiveData
+        get() = _updatesLiveData
 
-    init {
-        fetchResults()
-    }
-
-    fun fetchResults() {
+    fun getUpdatesById(id: String) {
         viewModelScope.launch {
-            repository.fetchFromAwsApi()
+            val item = dao.getGcpEventUpdatesById(id)
+            item.updates?.let { _updatesLiveData.postValue(it) }
         }
     }
 }

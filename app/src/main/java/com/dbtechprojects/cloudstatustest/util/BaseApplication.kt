@@ -5,7 +5,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.SharedPreferences
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationManagerCompat
 import androidx.hilt.work.HiltWorkerFactory
@@ -40,7 +39,6 @@ class BaseApplication : Application(), Configuration.Provider {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createNotificationChannel()
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        Log.e("BaseApp", "onCreate: $packageName")
 
         // only enqueue the work once, that is, when the app is first installed and opened for the first time.
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(Constants.AWS_WORK_REQUEST_UNIQUE_ID, ExistingPeriodicWorkPolicy.KEEP, awsWorkRequest)

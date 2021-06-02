@@ -5,8 +5,6 @@ import com.dbtechprojects.cloudstatustest.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-private const val TAG = "AzureViewModel"
-
 @HiltViewModel
 class AzureFragmentViewModel
 @Inject

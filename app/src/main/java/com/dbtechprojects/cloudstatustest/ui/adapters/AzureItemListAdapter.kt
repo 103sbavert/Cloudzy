@@ -18,8 +18,8 @@ class AzureItemListAdapter(private var list: List<AzureItem>) : RecyclerView.Ada
         companion object {
             fun inflateLayout(parent: ViewGroup): AzureItemViewHolder {
                 parent.apply {
-                    val inflater = LayoutInflater.from(parent.context)
-                    val binding = RowItemAzureBinding.inflate(inflater, parent, false)
+                    val inflater = LayoutInflater.from(context)
+                    val binding = RowItemAzureBinding.inflate(inflater, this, false)
                     return AzureItemViewHolder(binding)
                 }
             }

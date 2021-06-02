@@ -1,10 +1,7 @@
 package com.dbtechprojects.cloudstatustest.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.dbtechprojects.cloudstatustest.model.AwsItem
 import com.dbtechprojects.cloudstatustest.model.GcpItem
 
@@ -33,6 +30,10 @@ interface CloudStatusDAO {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertGcpItem(item: List<GcpItem>)
+
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT id, updates FROM gcpItems WHERE id == :id")
+    suspend fun getGcpEventUpdatesById(id: String): GcpItem
 
     @Query("DELETE FROM gcpItems")
     suspend fun deleteAllGcpItems()

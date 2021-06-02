@@ -1,11 +1,11 @@
 package com.dbtechprojects.cloudstatustest.ui.main.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.dbtechprojects.cloudstatustest.R
 import com.dbtechprojects.cloudstatustest.databinding.FragmentGcpBinding
 import com.dbtechprojects.cloudstatustest.repository.MainRepository
@@ -15,13 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class GcpFragment : Fragment(R.layout.fragment_gcp) {
+class GcpFragment : Fragment(R.layout.fragment_gcp), GcpItemListAdapter.OnButtonsClickListener {
 
     private lateinit var binding: FragmentGcpBinding
     private lateinit var mainFragment: MainFragment
     private val viewModel: GcpFragmentViewModel by viewModels()
     private val feedListAdapter by lazy {
-        GcpItemListAdapter()
+        GcpItemListAdapter(this)
     }
     private var shouldNotifyAboutNewItems by Delegates.notNull<Boolean>()
 
@@ -54,5 +54,9 @@ class GcpFragment : Fragment(R.layout.fragment_gcp) {
             viewModel.fetchResults()
             binding.gcpFeed.smoothScrollToPosition(0)
         }
+    }
+
+    override fun onUpdatesButtonClickListener(id: String) {
+        findNavController().navigate(GcpFragmentDirections.actionGcpFragmentToUpdatesDialogFragment(id))
     }
 }
