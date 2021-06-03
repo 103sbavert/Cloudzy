@@ -2,8 +2,7 @@
     android:width="200dp"
     android:height="160.87468dp"
     android:viewportWidth="333334"
-    android:viewportHeight="268125"
-    android:tint="@color/mid_gray">
+    android:viewportHeight="268125">
     <path
         android:fillColor="#ea4335"
         android:fillType="evenOdd"

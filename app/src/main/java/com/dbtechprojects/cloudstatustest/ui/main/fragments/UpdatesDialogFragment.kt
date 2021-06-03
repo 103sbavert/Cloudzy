@@ -30,6 +30,9 @@ class UpdatesDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getUpdatesById(navArgs.id)
+        binding.toolbar.setNavigationOnClickListener {
+            dismiss()
+        }
         viewModel.updatesLiveData.observe(viewLifecycleOwner) { list ->
             adapter = UpdatesListAdapter(list)
             binding.updatesRecyclerView.adapter = adapter

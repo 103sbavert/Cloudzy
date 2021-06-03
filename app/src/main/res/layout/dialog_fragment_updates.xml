@@ -7,10 +7,12 @@
     android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.MaterialComponents.Toolbar.Surface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Updates"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+        app:navigationIcon="@drawable/ic_baseline_close_24"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/updates_recycler_view"
