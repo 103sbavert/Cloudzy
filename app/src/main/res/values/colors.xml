@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#FFFFFF</color>
-    <color name="blue">#2393D0</color> //primary dark
-    <color name="dark_blue">#005b9f</color> //primary light
-    <color name="orange">#ff9800</color>  // secondary dark
-    <color name="dark_orange">#c66900</color> // secondary light
+    <color name="blue">#2393D0</color> // primary dark
+    <color name="dark_blue">#005b9f</color> // primary
+    <color name="orange">#ff9800</color>  // secondary
+    <color name="dark_orange">#c66900</color> // secondary dark
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#1cbd17</color>
