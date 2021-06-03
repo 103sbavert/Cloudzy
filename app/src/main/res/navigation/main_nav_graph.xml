@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.MainFragment"
+        android:name="com.dbtechprojects.cloudzy.ui.main.fragments.MainFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/settings_fragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.SettingsFragment"
+        android:name="com.dbtechprojects.cloudzy.ui.main.fragments.SettingsFragment"
         android:label="Settings" />
     <fragment
         android:id="@+id/about_Fragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AboutFragment"
+        android:name="com.dbtechprojects.cloudzy.ui.main.fragments.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about" />
 </navigation>

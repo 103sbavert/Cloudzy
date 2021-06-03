@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/gcp_fragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.GcpFragment"
+        android:name="com.dbtechprojects.cloudzy.ui.main.fragments.GcpFragment"
         android:label="fragment_gcp"
         tools:layout="@layout/fragment_gcp">
         <action
@@ -16,17 +16,17 @@
     </fragment>
     <fragment
         android:id="@+id/aws_fragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AwsFragment"
+        android:name="com.dbtechprojects.cloudzy.ui.main.fragments.AwsFragment"
         android:label="fragment_aws"
         tools:layout="@layout/fragment_aws" />
     <fragment
         android:id="@+id/azure_fragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.AzureFragment"
+        android:name="com.dbtechprojects.cloudzy.ui.main.fragments.AzureFragment"
         android:label="fragment_azure"
         tools:layout="@layout/fragment_azure" />
     <dialog
         android:id="@+id/updatesDialogFragment"
-        android:name="com.dbtechprojects.cloudstatustest.ui.main.fragments.UpdatesDialogFragment"
+        android:name="com.dbtechprojects.cloudzy.ui.main.fragments.UpdatesDialogFragment"
         android:label="dialog_fragment_updates"
         tools:layout="@layout/dialog_fragment_updates">
         <argument
