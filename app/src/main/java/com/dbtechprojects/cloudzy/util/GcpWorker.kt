@@ -31,19 +31,14 @@ constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters
 
         val shouldShowNotification = preferences.getBoolean(applicationContext.getString(R.string.gcp_notif_pref_key), true)
 
-        val dao = repository.getCacheDatabaseDao()
-        val oldList = dao.getGcpEvents()
-        repository.fetchFromGcpApi()
-        val newList = dao.getGcpEvents()
-
-        if (newList != oldList && shouldShowNotification) {
-            createNotification()
+        if (shouldShowNotification && repository.updateGcpDb()) {
+            createAndPushNotification()
         }
 
         Result.success()
     }
 
-    private fun createNotification() {
+    private fun createAndPushNotification() {
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             action = Constants.GCP_INTENT_ACTION
         }
@@ -54,7 +49,7 @@ constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters
 
         val notification = NotificationCompat
             .Builder(applicationContext, Constants.GCP_NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle(applicationContext.getString(R.string.notification_title, "GCP"))
             .setContentText(applicationContext.getString(R.string.notification_text, "GCP"))
             .setStyle(NotificationCompat.BigTextStyle())

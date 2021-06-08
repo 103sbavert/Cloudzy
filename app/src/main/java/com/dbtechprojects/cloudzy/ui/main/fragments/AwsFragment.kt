@@ -5,13 +5,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.dbtechprojects.cloudzy.R
 import com.dbtechprojects.cloudzy.databinding.FragmentAwsBinding
 import com.dbtechprojects.cloudzy.repository.MainRepository
 import com.dbtechprojects.cloudzy.ui.adapters.AwsItemListAdapter
 import com.dbtechprojects.cloudzy.ui.main.viewmodels.AwsFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AwsFragment : Fragment(R.layout.fragment_aws) {
@@ -22,35 +23,39 @@ class AwsFragment : Fragment(R.layout.fragment_aws) {
     private val feedListAdapter by lazy {
         AwsItemListAdapter()
     }
-    private var shouldNotifyAboutNewItems by Delegates.notNull<Boolean>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentAwsBinding.bind(view)
-        binding.awsFeed.adapter = feedListAdapter
         mainFragment = requireParentFragment().requireParentFragment() as MainFragment
-        shouldNotifyAboutNewItems = false
 
+        binding.awsFeed.adapter = feedListAdapter
         binding.swipeToRefreshLayout.setOnRefreshListener {
-            viewModel.fetchResults()
+            viewModel.updateDb()
         }
+
+        lifecycleScope.launch {
+            feedListAdapter.submitList(viewModel.getItemsFromDb())
+        }
+
         viewModel.apiFetchResult.observe(viewLifecycleOwner) {
             binding.swipeToRefreshLayout.isRefreshing = it == MainRepository.State.LOADING
         }
-        viewModel.feed.observe(viewLifecycleOwner) {
-            feedListAdapter.submitList(it)
-            if (shouldNotifyAboutNewItems) {
-                Toast.makeText(requireContext(), "New Results Found", Toast.LENGTH_SHORT).show()
+        viewModel.wasDbUpdated.observe(viewLifecycleOwner) {
+            if (it) {
+                Toast.makeText(requireContext(), "New Items Found", Toast.LENGTH_SHORT).show()
+                lifecycleScope.launch {
+                    feedListAdapter.submitList(viewModel.getItemsFromDb())
+                }
             }
-            shouldNotifyAboutNewItems = true
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainFragment.binding.bottomNavigationBar.setOnNavigationItemReselectedListener {
-            viewModel.fetchResults()
+            viewModel.updateDb()
             binding.awsFeed.smoothScrollToPosition(0)
         }
     }

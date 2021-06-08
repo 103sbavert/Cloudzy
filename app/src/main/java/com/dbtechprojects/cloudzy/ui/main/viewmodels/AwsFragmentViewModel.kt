@@ -1,7 +1,10 @@
 package com.dbtechprojects.cloudzy.ui.main.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dbtechprojects.cloudzy.model.AwsItem
 import com.dbtechprojects.cloudzy.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,16 +16,22 @@ class AwsFragmentViewModel
 constructor(private val repository: MainRepository) : ViewModel() {
 
     private val dao = repository.getCacheDatabaseDao()
-    val feed = dao.getAwsEventsLiveData()
+    private val _wasDbUpdated = MutableLiveData<Boolean>()
+    val wasDbUpdated: LiveData<Boolean>
+        get() = _wasDbUpdated
     val apiFetchResult = repository.awsApiFetchResult
 
     init {
-        fetchResults()
+        updateDb()
     }
 
-    fun fetchResults() {
+    suspend fun getItemsFromDb(): List<AwsItem> {
+        return dao.getAwsEvents()
+    }
+
+    fun updateDb() {
         viewModelScope.launch {
-            repository.fetchFromAwsApi()
+            _wasDbUpdated.postValue(repository.updateAwsDb())
         }
     }
 }

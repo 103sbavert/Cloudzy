@@ -1,7 +1,10 @@
 package com.dbtechprojects.cloudzy.ui.main.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dbtechprojects.cloudzy.model.GcpItem
 import com.dbtechprojects.cloudzy.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,16 +16,22 @@ class GcpFragmentViewModel
 constructor(private val repository: MainRepository) : ViewModel() {
 
     private val dao = repository.getCacheDatabaseDao()
-    val feed = dao.getGcpEventsLiveData()
+    private val _wasDbUpdated = MutableLiveData<Boolean>()
+    val wasDbUpdated: LiveData<Boolean>
+        get() = _wasDbUpdated
     val apiFetchResult = repository.gcpApiFetchResult
 
     init {
-        fetchResults()
+        updateDb()
     }
 
-    fun fetchResults() {
+    suspend fun getItemsFromDb(): List<GcpItem> {
+        return dao.getGcpEvents()
+    }
+
+    fun updateDb() {
         viewModelScope.launch {
-            repository.fetchFromGcpApi()
+            _wasDbUpdated.postValue(repository.updateGcpDb())
         }
     }
 }

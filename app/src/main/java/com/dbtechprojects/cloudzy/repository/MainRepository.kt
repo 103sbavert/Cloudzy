@@ -6,11 +6,11 @@ import com.dbtechprojects.cloudzy.api.AwsApiInterface
 import com.dbtechprojects.cloudzy.api.AzureApiInterface
 import com.dbtechprojects.cloudzy.api.GcpApiInterface
 import com.dbtechprojects.cloudzy.database.CacheDatabase
+import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import javax.inject.Inject
-
-private const val TAG = "Main Repository"
 
 class MainRepository
 @Inject
@@ -30,46 +30,63 @@ constructor(
     val awsApiFetchResult: LiveData<State>
         get() = _awsApiFetchResult
 
-    suspend fun fetchFromAwsApi() {
-        withContext(IO) {
-            try {
-                _awsApiFetchResult.postValue(State.LOADING)
-
-                // fetch the results from the api and put each fetched item in the db
-                awsApi.getAwsResponse().body()?.channel?.itemList?.let { getCacheDatabaseDao().insertAwsItem(it) }
-
-                // post State.SUCCESS if the task above is successfully completed
-                _awsApiFetchResult.postValue(State.SUCCESS)
-            } catch (e: Exception) {
-
-                // post State.Failure if the task above fails
-                _awsApiFetchResult.postValue(State.FAILURE)
-            }
-        }
-    }
-
     private val _gcpApiFetchResult = MutableLiveData<State>()
     val gcpApiFetchResult: LiveData<State>
         get() = _gcpApiFetchResult
 
-    suspend fun fetchFromGcpApi() {
-        withContext(IO) {
-            try {
-                _gcpApiFetchResult.postValue(State.LOADING)
+    fun getCacheDatabaseDao() = cacheDatabase.getDao()
 
-                // fetch the results from the api and put each fetched item in the db
-                gcpApi.getGcpResponse().body()?.let { getCacheDatabaseDao().insertGcpItem(it) }
-
-                // post State.SUCCESS if the task above is successfully completed
-                _gcpApiFetchResult.postValue(State.SUCCESS)
-            } catch (e: Exception) {
-
-                // post State.Failure if the task above fails
-                _gcpApiFetchResult.postValue(State.FAILURE)
-            }
+    private suspend fun <T> compareLists(newList: List<T>, oldList: List<T>): Boolean {
+        return withContext(Default) {
+            return@withContext newList != oldList
         }
     }
 
+    private suspend fun getAwsItemsFromApi() = withContext(IO) {
+        try {
+            return@withContext awsApi.getAwsResponse().body()?.channel?.itemList!!
+        } catch (e: Exception) {
+            throw IOException("Failed to fetch data from the api!")
+        }
+    }
 
-    fun getCacheDatabaseDao() = cacheDatabase.getDao()
+    suspend fun updateAwsDb() = try {
+        _awsApiFetchResult.postValue(State.LOADING)
+        val oldList = getCacheDatabaseDao().getAwsEvents()
+        val newList = getAwsItemsFromApi()
+        val shouldUpdateDb: Boolean = compareLists(newList, oldList)
+        if (shouldUpdateDb) {
+            getCacheDatabaseDao().deleteAllAwsItems()
+            getCacheDatabaseDao().insertAwsItems(newList)
+        }
+        _awsApiFetchResult.postValue(State.SUCCESS)
+        shouldUpdateDb
+    } catch (e: IOException) {
+        _awsApiFetchResult.postValue(State.FAILURE)
+        false
+    }
+
+    private suspend fun getGcpItemsFromApi() = withContext(IO) {
+        try {
+            return@withContext gcpApi.getGcpResponse().body()!!
+        } catch (e: Exception) {
+            throw IOException("Failed to fetch data from the api!")
+        }
+    }
+
+    suspend fun updateGcpDb() = try {
+        _gcpApiFetchResult.postValue(State.LOADING)
+        val oldList = getCacheDatabaseDao().getGcpEvents()
+        val newList = getGcpItemsFromApi()
+        val shouldUpdateDb: Boolean = compareLists(newList, oldList)
+        if (shouldUpdateDb) {
+            getCacheDatabaseDao().deleteAllGcpItems()
+            getCacheDatabaseDao().insertGcpItems(newList)
+        }
+        _gcpApiFetchResult.postValue(State.SUCCESS)
+        shouldUpdateDb
+    } catch (e: IOException) {
+        _gcpApiFetchResult.postValue(State.FAILURE)
+        false
+    }
 }

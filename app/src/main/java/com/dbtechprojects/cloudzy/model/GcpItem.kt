@@ -19,21 +19,9 @@ data class GcpItem(
     @SerializedName("number")
     val number: String? = null,
 
-//    @ColumnInfo(name = "begin")
-//    @SerializedName("begin")
-//    val begin: String? = null,
-
     @ColumnInfo(name = "created")
     @SerializedName("created")
     val created: String? = null,
-
-//    @ColumnInfo(name = "end")
-//    @SerializedName("end")
-//    val end: String? = null,
-
-//    @ColumnInfo(name = "modified")
-//    @SerializedName("modified")
-//    val modified: String? = null,
 
     @ColumnInfo(name = "external_desc")
     @SerializedName("external_desc")
@@ -42,10 +30,6 @@ data class GcpItem(
     @ColumnInfo(name = "updates")
     @SerializedName("updates")
     val updates: List<Update>? = null,
-
-//    @ColumnInfo(name = "most_recent_update")
-//    @SerializedName("most_recent_update")
-//    val mostRecentUpdate: MostRecentUpdate? = null,
 
     @ColumnInfo(name = "status_impact")
     @SerializedName("status_impact")
@@ -77,24 +61,6 @@ data class AffectedProduct(
     @SerializedName("title")
     val title: String
 )
-
-//data class MostRecentUpdate(
-//
-//    @SerializedName("created")
-//    val created: String,
-//
-//    @SerializedName("modified")
-//    val modified: String,
-//
-//    @SerializedName("when")
-//    val `when`: String,
-//
-//    @SerializedName("text")
-//    val text: String,
-//
-//    @SerializedName("status")
-//    val status: String
-//)
 
 data class Update(
 
