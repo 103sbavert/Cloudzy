@@ -9,7 +9,7 @@ import com.dbtechprojects.cloudzy.R
 import com.dbtechprojects.cloudzy.databinding.FragmentAwsBinding
 import com.dbtechprojects.cloudzy.repository.MainRepository
 import com.dbtechprojects.cloudzy.ui.adapters.AwsItemListAdapter
-import com.dbtechprojects.cloudzy.ui.main.viewmodels.MainFragmentViewModel
+import com.dbtechprojects.cloudzy.ui.main.viewmodels.AwsFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
@@ -18,7 +18,7 @@ class AwsFragment : Fragment(R.layout.fragment_aws) {
 
     private lateinit var binding: FragmentAwsBinding
     private lateinit var mainFragment: MainFragment
-    private val viewModel: MainFragmentViewModel by viewModels()
+    private val viewModel: AwsFragmentViewModel by viewModels()
     private val feedListAdapter by lazy {
         AwsItemListAdapter()
     }

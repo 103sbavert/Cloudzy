@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainFragmentViewModel
+class AwsFragmentViewModel
 @Inject
 constructor(private val repository: MainRepository) : ViewModel() {
 

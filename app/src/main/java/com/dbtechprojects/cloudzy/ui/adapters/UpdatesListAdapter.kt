@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dbtechprojects.cloudzy.databinding.RowItemUpdateBinding
 import com.dbtechprojects.cloudzy.model.Update
+import io.noties.markwon.Markwon
 
 class UpdatesListAdapter(private val dataList: List<Update>) : RecyclerView.Adapter<UpdatesListAdapter.UpdatesViewHolder>() {
 
@@ -21,9 +22,16 @@ class UpdatesListAdapter(private val dataList: List<Update>) : RecyclerView.Adap
         }
 
         fun bind(item: Update) {
-            binding.text.text = item.text
-            binding.status.text = item.status
+            setItemText(item.text)
+
+            // converts ABCDEFG to abcdefg and then Abcdefg
+            binding.status.text = item.status.lowercase().replaceFirstChar { it.uppercase() }
             binding.created.text = item.created
+        }
+
+        private fun setItemText(text: String) {
+            val newText = text.replace(Regex("\n"), "\n\n")
+            Markwon.create(binding.root.context).setMarkdown(binding.text, newText)
         }
     }
 
