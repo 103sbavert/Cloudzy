@@ -1,6 +1,5 @@
 package com.dbtechprojects.cloudzy.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dbtechprojects.cloudzy.model.AwsItem
 import com.dbtechprojects.cloudzy.model.GcpItem

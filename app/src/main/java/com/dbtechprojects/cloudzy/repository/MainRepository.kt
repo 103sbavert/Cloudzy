@@ -1,5 +1,6 @@
 package com.dbtechprojects.cloudzy.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dbtechprojects.cloudzy.api.AwsApiInterface
@@ -9,7 +10,6 @@ import com.dbtechprojects.cloudzy.database.CacheDatabase
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
-import java.io.IOException
 import javax.inject.Inject
 
 class MainRepository
@@ -43,11 +43,7 @@ constructor(
     }
 
     private suspend fun getAwsItemsFromApi() = withContext(IO) {
-        try {
-            return@withContext awsApi.getAwsResponse().body()?.channel?.itemList!!
-        } catch (e: Exception) {
-            throw IOException("Failed to fetch data from the api!")
-        }
+        return@withContext awsApi.getAwsResponse().body()?.channel?.itemList!!
     }
 
     suspend fun updateAwsDb() = try {
@@ -61,17 +57,14 @@ constructor(
         }
         _awsApiFetchResult.postValue(State.SUCCESS)
         shouldUpdateDb
-    } catch (e: IOException) {
+    } catch (e: Exception) {
+        Log.e("updateAwsDb", e.localizedMessage)
         _awsApiFetchResult.postValue(State.FAILURE)
         false
     }
 
     private suspend fun getGcpItemsFromApi() = withContext(IO) {
-        try {
-            return@withContext gcpApi.getGcpResponse().body()!!
-        } catch (e: Exception) {
-            throw IOException("Failed to fetch data from the api!")
-        }
+        return@withContext gcpApi.getGcpResponse().body()!!
     }
 
     suspend fun updateGcpDb() = try {
@@ -85,7 +78,8 @@ constructor(
         }
         _gcpApiFetchResult.postValue(State.SUCCESS)
         shouldUpdateDb
-    } catch (e: IOException) {
+    } catch (e: Exception) {
+        Log.e("updateGcpDb", e.localizedMessage)
         _gcpApiFetchResult.postValue(State.FAILURE)
         false
     }

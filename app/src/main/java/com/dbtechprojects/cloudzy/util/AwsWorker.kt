@@ -58,5 +58,4 @@ constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters
             .build()
         NotificationManagerCompat.from(applicationContext).notify(NOTIFICATION_ID, notification)
     }
-
 }
