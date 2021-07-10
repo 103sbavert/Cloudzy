@@ -83,4 +83,26 @@ constructor(
         _gcpApiFetchResult.postValue(State.FAILURE)
         false
     }
+
+    private suspend fun getAzureItemsFromApi() = withContext(IO) {
+        return@withContext azureApi.getAzureResponse().body()?.channel!!.item
+    }
+
+    suspend fun updateAzureDb() = try {
+       // _gcpApiFetchResult.postValue(State.LOADING)
+        //val oldList = getCacheDatabaseDao().getGcpEvents()
+        val newList = getAzureItemsFromApi()
+//        val shouldUpdateDb: Boolean = compareLists(newList, oldList)
+//        if (shouldUpdateDb) {
+//            getCacheDatabaseDao().deleteAllGcpItems()
+//            getCacheDatabaseDao().insertGcpItems(newList)
+//        }
+        //_gcpApiFetchResult.postValue(State.SUCCESS)
+        //shouldUpdateDb
+        Log.d("azure", "result ${newList.toString()}")
+    } catch (e: Exception) {
+        Log.e("azure", e.localizedMessage)
+        false
+    }
+
 }
