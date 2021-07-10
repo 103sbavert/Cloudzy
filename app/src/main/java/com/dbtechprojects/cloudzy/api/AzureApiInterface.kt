@@ -6,8 +6,9 @@ import retrofit2.http.GET
 
 interface AzureApiInterface {
 
-    @GET("/en-gb/status/feed/")
-    suspend fun getAzureEvent(): Response<AzureFeed>
+    //@GET("/en-gb/status/feed/")
+    @GET("/dbtechprojects.com/Azure.rss")
+    suspend fun getAzureResponse(): Response<AzureFeed>
 }
 
 
