@@ -11,6 +11,8 @@ import com.dbtechprojects.cloudzy.R
 import com.dbtechprojects.cloudzy.databinding.RowItemGcpBinding
 import com.dbtechprojects.cloudzy.model.AffectedProduct
 import com.dbtechprojects.cloudzy.model.GcpItem
+import com.dbtechprojects.cloudzy.model.MostRecentUpdate
+import io.noties.markwon.Markwon
 
 class GcpItemListAdapter(private val onButtonClickListener: OnButtonsClickListener) :
     ListAdapter<GcpItem, GcpItemListAdapter.GcpItemViewHolder>(GcpAdapterDiffUtil()) {
@@ -38,6 +40,16 @@ class GcpItemListAdapter(private val onButtonClickListener: OnButtonsClickListen
             binding.id.text = binding.root.context.getString(R.string.id_text, item.id)
             item.affectedProducts?.let { setAffectedProductsText(it) }
             binding.updatesButton.setOnClickListener { onButtonClickListener.onUpdatesButtonClickListener(item.id) }
+            item.mostRecentUpdate?.let { bindMostRecentUpdate(it) }
+        }
+
+        private fun bindMostRecentUpdate(item: MostRecentUpdate) {
+            val newText = item.text?.replace(Regex("\\n"), "\n\n")
+            newText?.let { Markwon.create(binding.root.context).setMarkdown(binding.text, it) }
+
+            // converts ABCDEFG to abcdefg and then Abcdefg
+            binding.status.text = item.status?.lowercase()?.replaceFirstChar { it.uppercase() }
+            binding.created.text = item.created
         }
 
         private fun setAffectedProductsText(list: List<AffectedProduct>) {

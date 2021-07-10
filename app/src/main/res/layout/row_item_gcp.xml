@@ -35,14 +35,13 @@
             android:id="@+id/created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:textAppearance="?textAppearanceCaption"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/id"
             app:layout_constraintEnd_toStartOf="@+id/id"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/updates_button"
+            app:layout_constraintTop_toTopOf="@+id/id"
             app:layout_constraintVertical_bias="1.0"
             tools:text="Tue, 13 Apr 2021 20:00:43 PDT" />
 
@@ -50,12 +49,13 @@
             android:id="@+id/id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
             android:textAppearance="?textAppearanceCaption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/created"
-            app:layout_constraintTop_toTopOf="@+id/created"
+            app:layout_constraintTop_toBottomOf="@+id/service_name"
             app:layout_constraintVertical_bias="1.0"
             tools:text="id: HU4hHMTWVXLBpo8gJL21" />
 
@@ -102,19 +102,78 @@
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="Status Impact: SERVICE_DISRUPTION" />
 
-        <Button
-            android:id="@+id/updates_button"
-            style="?materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
             android:layout_marginTop="8dp"
-            android:text="Updates"
-            app:icon="@drawable/ic_baseline_navigate_next_24"
-            app:iconGravity="end"
+            android:background="@color/blue"
+            app:layout_constraintBottom_toTopOf="@+id/heading"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/service_name" />
 
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="Most Recent Update"
+            android:textAppearance="?textAppearanceSubtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?textAppearanceBody2"
+            app:layout_constraintStart_toStartOf="@+id/status"
+            app:layout_constraintTop_toBottomOf="@+id/status"
+            tools:text="some long text" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceSubtitle2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/heading"
+            tools:text="status" />
+
+        <TextView
+            android:id="@+id/created_mru"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceCaption"
+            app:layout_constraintBottom_toBottomOf="@+id/updates_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/updates_button"
+            tools:text="created" />
+
+        <Button
+            android:id="@+id/updates_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="See All"
+            app:icon="@drawable/ic_baseline_navigate_next_24"
+            app:iconGravity="end"
+            app:layout_constraintBottom_toTopOf="@+id/line2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/blue"
+            app:layout_constraintBottom_toTopOf="@+id/id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

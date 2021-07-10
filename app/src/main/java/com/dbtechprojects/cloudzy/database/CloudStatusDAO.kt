@@ -8,26 +8,26 @@ import com.dbtechprojects.cloudzy.model.GcpItem
 interface CloudStatusDAO {
 
     // AWS
-    @Query("SELECT * FROM awsItems")
+    @Query("SELECT * FROM aws_items")
     suspend fun getAwsEvents(): List<AwsItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAwsItems(item: List<AwsItem>)
 
-    @Query("DELETE FROM awsItems")
+    @Query("DELETE FROM aws_items")
     suspend fun deleteAllAwsItems()
 
     // GCP
-    @Query("SELECT * FROM gcpItems")
+    @Query("SELECT * FROM gcp_items")
     suspend fun getGcpEvents(): List<GcpItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGcpItems(item: List<GcpItem>)
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT id, updates FROM gcpItems WHERE id == :id")
+    @Query("SELECT id, updates FROM gcp_items WHERE id == :id")
     suspend fun getGcpEventUpdatesById(id: String): GcpItem
 
-    @Query("DELETE FROM gcpItems")
+    @Query("DELETE FROM gcp_items")
     suspend fun deleteAllGcpItems()
 }

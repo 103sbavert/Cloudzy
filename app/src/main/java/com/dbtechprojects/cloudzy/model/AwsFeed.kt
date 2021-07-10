@@ -44,7 +44,7 @@ data class Channel(
 )
 
 @Xml(name = "item")
-@Entity(tableName = "awsItems")
+@Entity(tableName = "aws_items")
 data class AwsItem(
 
     @ColumnInfo(name = "title")

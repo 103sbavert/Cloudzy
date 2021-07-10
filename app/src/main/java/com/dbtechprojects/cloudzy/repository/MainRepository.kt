@@ -58,7 +58,7 @@ constructor(
         _awsApiFetchResult.postValue(State.SUCCESS)
         shouldUpdateDb
     } catch (e: Exception) {
-        Log.e("updateAwsDb", e.localizedMessage)
+        e.printStackTrace()
         _awsApiFetchResult.postValue(State.FAILURE)
         false
     }
@@ -79,7 +79,7 @@ constructor(
         _gcpApiFetchResult.postValue(State.SUCCESS)
         shouldUpdateDb
     } catch (e: Exception) {
-        Log.e("updateGcpDb", e.localizedMessage)
+        e.printStackTrace()
         _gcpApiFetchResult.postValue(State.FAILURE)
         false
     }

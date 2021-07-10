@@ -25,7 +25,7 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?textAppearanceBody1"
+            android:textAppearance="?textAppearanceSubtitle2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="status" />

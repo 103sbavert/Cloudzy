@@ -5,77 +5,119 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-
-// table title items must be unique this stops us storing duplicate items
-@Entity(tableName = "gcpItems")
+@Entity(tableName = "gcp_items")
 data class GcpItem(
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    @SerializedName("id")
-    val id: String, // custom name as ID will be reserved for Room
+    @SerializedName(value = "id")
+    var id: String,
 
     @ColumnInfo(name = "number")
-    @SerializedName("number")
-    val number: String? = null,
+    @SerializedName(value = "number")
+    var number: String? = null,
+
+    @ColumnInfo(name = "begin")
+    @SerializedName(value = "begin")
+    var begin: String? = null,
 
     @ColumnInfo(name = "created")
-    @SerializedName("created")
-    val created: String? = null,
+    @SerializedName(value = "created")
+    var created: String? = null,
+
+    @ColumnInfo(name = "end")
+    @SerializedName(value = "end")
+    var end: String? = null,
+
+    @ColumnInfo(name = "modified")
+    @SerializedName(value = "modified")
+    var modified: String? = null,
 
     @ColumnInfo(name = "external_desc")
-    @SerializedName("external_desc")
-    val externalDesc: String? = null,
+    @SerializedName(value = "external_desc")
+    var externalDesc: String? = null,
 
     @ColumnInfo(name = "updates")
-    @SerializedName("updates")
-    val updates: List<Update>? = null,
+    @SerializedName(value = "updates")
+    var updates: List<Update>? = null,
+
+    @ColumnInfo(name = "most_recent_update")
+    @SerializedName(value = "most_recent_update")
+    var mostRecentUpdate: MostRecentUpdate? = null,
 
     @ColumnInfo(name = "status_impact")
-    @SerializedName("status_impact")
-    val statusImpact: String? = null,
+    @SerializedName(value = "status_impact")
+    var statusImpact: String? = null,
 
     @ColumnInfo(name = "severity")
-    @SerializedName("severity")
-    val severity: String? = null,
-
-    @ColumnInfo(name = "service_name")
-    @SerializedName("service_name")
-    val serviceName: String? = null,
+    @SerializedName(value = "severity")
+    var severity: String? = null,
 
     @ColumnInfo(name = "service_key")
     @SerializedName("service_key")
-    val serviceKey: String? = null,
+    var serviceKey: String? = null,
+
+    @ColumnInfo(name = "service_name")
+    @SerializedName(value = "service_name")
+    var serviceName: String? = null,
 
     @ColumnInfo(name = "affected_products")
-    @SerializedName("affected_products")
-    val affectedProducts: List<AffectedProduct>? = null,
+    @SerializedName(value = "affected_products")
+    var affectedProducts: List<AffectedProduct>? = null,
 
     @ColumnInfo(name = "uri")
-    @SerializedName("uri")
-    val uri: String? = null,
+    @SerializedName(value = "uri")
+    var uri: String? = null
 )
 
 data class AffectedProduct(
 
-    @SerializedName("title")
-    val title: String
+    @ColumnInfo(name = "title")
+    @SerializedName(value = "title")
+    var title: String? = null,
+
+    @ColumnInfo(name = "id")
+    @SerializedName(value = "id")
+    var id: String? = null
+)
+
+data class MostRecentUpdate(
+
+    @SerializedName(value = "created")
+    @ColumnInfo(name = "created")
+    var created: String? = null,
+
+    @ColumnInfo(name = "modified")
+    @SerializedName(value = "modified")
+    var modified: String? = null,
+
+    @ColumnInfo(name = "when")
+    @SerializedName(value = "when")
+    var `when`: String? = null,
+
+    @ColumnInfo(name = "text")
+    @SerializedName(value = "text")
+    var text: String? = null,
+
+    @ColumnInfo(name = "status")
+    @SerializedName(value = "status")
+    var status: String? = null
 )
 
 data class Update(
 
-    @SerializedName("created")
-    val created: String,
+    @SerializedName(value = "created")
+    var created: String? = null,
 
-    @SerializedName("modified")
-    val modified: String,
+    @SerializedName(value = "modified")
+    var modified: String? = null,
 
-    @SerializedName("when")
-    val `when`: String,
+    @SerializedName(value = "when")
+    var `when`: String? = null,
 
-    @SerializedName("text")
-    val text: String,
+    @SerializedName(value = "text")
+    var text: String? = null,
 
-    @SerializedName("status")
-    val status: String
+    @SerializedName(value = "status")
+    var status: String? = null
 )

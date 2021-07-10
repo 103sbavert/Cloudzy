@@ -25,13 +25,13 @@ class UpdatesListAdapter(private val dataList: List<Update>) : RecyclerView.Adap
             setItemText(item.text)
 
             // converts ABCDEFG to abcdefg and then Abcdefg
-            binding.status.text = item.status.lowercase().replaceFirstChar { it.uppercase() }
+            binding.status.text = item.status?.lowercase()?.replaceFirstChar { it.uppercase() }
             binding.created.text = item.created
         }
 
-        private fun setItemText(text: String) {
-            val newText = text.replace(Regex("\n"), "\n\n")
-            Markwon.create(binding.root.context).setMarkdown(binding.text, newText)
+        private fun setItemText(text: String?) {
+            val newText = text?.replace(Regex("\\n"), "\n\n")
+            newText?.let { Markwon.create(binding.root.context).setMarkdown(binding.text, it) }
         }
     }
 
