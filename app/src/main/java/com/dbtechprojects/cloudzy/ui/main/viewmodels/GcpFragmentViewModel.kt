@@ -16,22 +16,19 @@ class GcpFragmentViewModel
 constructor(private val repository: MainRepository) : ViewModel() {
 
     private val dao = repository.getCacheDatabaseDao()
-    private val _wasDbUpdated = MutableLiveData<Boolean>()
+    private val _feed = MutableLiveData<List<GcpItem>>()
+    val feed = dao.getGcpEventsLiveData()
+    val apiFetchResult = repository.gcpApiFetchResult
+
+    private val _wasDbUpdated = MutableLiveData(false)
     val wasDbUpdated: LiveData<Boolean>
         get() = _wasDbUpdated
-    val apiFetchResult = repository.gcpApiFetchResult
 
     init {
         updateDb()
     }
 
-    suspend fun getItemsFromDb(): List<GcpItem> {
-        return dao.getGcpEvents()
-    }
-
-    fun updateDb() {
-        viewModelScope.launch {
-            _wasDbUpdated.postValue(repository.updateGcpDb())
-        }
+    fun updateDb() = viewModelScope.launch {
+        _wasDbUpdated.postValue(repository.updateGcpDb())
     }
 }

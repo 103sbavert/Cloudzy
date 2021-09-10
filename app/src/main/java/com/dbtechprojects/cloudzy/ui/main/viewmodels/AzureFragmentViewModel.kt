@@ -1,6 +1,7 @@
 package com.dbtechprojects.cloudzy.ui.main.viewmodels
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dbtechprojects.cloudzy.repository.MainRepository
@@ -13,15 +14,19 @@ class AzureFragmentViewModel
 @Inject
 constructor(private val repository: MainRepository) : ViewModel() {
 
+    private val dao = repository.getCacheDatabaseDao()
+    val feed = dao.getAzureEventsLiveData()
+    val apiFetchResult = repository.azureApiFetchResult
+
+    private val _wasDbUpdated = MutableLiveData(false)
+    val wasDbUpdated: LiveData<Boolean>
+        get() = _wasDbUpdated
 
     init {
         updateDb()
-        Log.d("azure", "init")
     }
 
-    fun updateDb() {
-        viewModelScope.launch {
-            repository.updateAzureDb()
-        }
+    fun updateDb() = viewModelScope.launch {
+        _wasDbUpdated.postValue(repository.updateAzureDb())
     }
 }

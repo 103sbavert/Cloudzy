@@ -1,12 +1,15 @@
 package com.dbtechprojects.cloudzy.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.tickaroo.tikxml.annotation.*
 
 //TO BE UPDATED
 @Xml(name = "rss")
 data class AzureFeed(
 
-    @Element
+    @Element(name = "channel")
     val channel: AzureChannel? = null,
 
     @Attribute
@@ -33,44 +36,44 @@ data class AzureChannel(
     val lastBuildDate: String? = null,
 
     @Element
-    val item: List<AzureItem>? = null,
+    val itemList: List<AzureItem>
 )
 
 @Xml(name = "item")
+@Entity(tableName = "azure_items")
 data class AzureItem(
 
+    @PrimaryKey
+    @ColumnInfo(name = "guid")
     @Element
-    val guid: AzureGuid,
+    val guid: Guid,
 
+    @ColumnInfo(name = "link")
     @PropertyElement
     val link: String? = null,
 
+    @ColumnInfo(name = "categories")
     @Element
-    val category: List<AzureCategory>? = null,
+    val categories: List<AzureCategory>? = null,
 
+    @ColumnInfo(name = "title")
     @PropertyElement
     val title: String? = null,
 
+    @ColumnInfo(name = "description")
     @PropertyElement
     val description: String? = null,
 
+    @ColumnInfo(name = "pubDate")
     @PropertyElement
     val pubDate: String? = null
 )
 
 @Xml(name = "category")
 data class AzureCategory(
-    val category: String? = null
-)
-
-@Xml(name = "guid")
-data class AzureGuid (
-
-    @Attribute(name = "isPermaLink")
-    val isPermaLink: Boolean? = false,
 
     @TextContent
-    val text: String? = null
+    val category: String? = null
 )
 
 

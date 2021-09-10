@@ -17,10 +17,10 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
-private const val NOTIFICATION_ID = 2
+private const val NOTIFICATION_ID = 5
 
 @HiltWorker
-class AwsWorker
+class AzureWorker
 @AssistedInject
 constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters, private val repository: MainRepository) :
     CoroutineWorker(context, workerParams) {
@@ -31,7 +31,7 @@ constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters
 
         val shouldShowNotification = preferences.getBoolean(applicationContext.getString(R.string.aws_notif_pref_key), true)
 
-        if (shouldShowNotification && repository.updateAwsDb()) {
+        if (shouldShowNotification && repository.updateAzureDb()) {
             createAndPushNotification()
         }
 
@@ -40,7 +40,7 @@ constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters
 
     private fun createAndPushNotification() {
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
-            action = Constants.AWS_INTENT_ACTION
+            action = Constants.AZURE_INTENT_ACTION
         }
         val pendingIntent: PendingIntent? = TaskStackBuilder.create(applicationContext).run {
             addNextIntentWithParentStack(intent)
@@ -48,10 +48,10 @@ constructor(@Assisted context: Context, @Assisted workerParams: WorkerParameters
         }
 
         val notification = NotificationCompat
-            .Builder(applicationContext, Constants.AWS_NOTIFICATION_CHANNEL_ID)
+            .Builder(applicationContext, Constants.AZURE_NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.notification_icon)
-            .setContentTitle(applicationContext.getString(R.string.notification_title, "AWS"))
-            .setContentText(applicationContext.getString(R.string.notification_text, "AWS"))
+            .setContentTitle(applicationContext.getString(R.string.notification_title, "AZURE"))
+            .setContentText(applicationContext.getString(R.string.notification_text, "AZURE"))
             .setStyle(NotificationCompat.BigTextStyle())
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)

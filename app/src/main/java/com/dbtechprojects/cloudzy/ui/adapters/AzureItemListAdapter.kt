@@ -2,17 +2,25 @@ package com.dbtechprojects.cloudzy.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dbtechprojects.cloudzy.databinding.RowItemAzureBinding
 import com.dbtechprojects.cloudzy.model.AzureItem
 
-
-class AzureItemListAdapter(private var list: List<AzureItem>) : RecyclerView.Adapter<AzureItemListAdapter.AzureItemViewHolder>() {
+class AzureItemListAdapter : ListAdapter<AzureItem, AzureItemListAdapter.AzureItemViewHolder>(AzureAdapterDiffUtil()) {
 
     class AzureItemViewHolder(private val binding: RowItemAzureBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: AzureItem) {
-            // TODO: YET TO BE IMPLEMENTED
+            binding.title.text = item.title
+            binding.description.text = HtmlCompat.fromHtml(
+                item.description?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY) }.toString(),
+                HtmlCompat.FROM_HTML_MODE_COMPACT
+            )
+            binding.pubDate.text = item.pubDate
+            binding.guid.text = item.guid.text
         }
 
         companion object {
@@ -31,12 +39,17 @@ class AzureItemListAdapter(private var list: List<AzureItem>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: AzureItemViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(getItem(position))
+    }
+}
+
+class AzureAdapterDiffUtil : DiffUtil.ItemCallback<AzureItem>() {
+
+    override fun areItemsTheSame(oldItem: AzureItem, newItem: AzureItem): Boolean {
+        return oldItem.title == newItem.title
     }
 
-    override fun getItemCount(): Int = list.size
-
-    fun addEvent(event: AzureItem) {
-        list += event
+    override fun areContentsTheSame(oldItem: AzureItem, newItem: AzureItem): Boolean {
+        return oldItem.guid == newItem.guid
     }
 }

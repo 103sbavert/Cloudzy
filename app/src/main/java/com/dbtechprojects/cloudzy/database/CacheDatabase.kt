@@ -6,9 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.dbtechprojects.cloudzy.model.AwsItem
+import com.dbtechprojects.cloudzy.model.AzureItem
 import com.dbtechprojects.cloudzy.model.GcpItem
 
-@Database(entities = [AwsItem::class, GcpItem::class], version = 2, exportSchema = false)
+@Database(entities = [AwsItem::class, GcpItem::class, AzureItem::class], version = 3, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class CacheDatabase : RoomDatabase() {
 

@@ -2,6 +2,7 @@ package com.dbtechprojects.cloudzy.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,10 @@ class AwsItemListAdapter : ListAdapter<AwsItem, AwsItemListAdapter.AwsItemViewHo
 
         fun bind(item: AwsItem) {
             binding.title.text = item.title
-            binding.description.text = item.description
+            binding.description.text = HtmlCompat.fromHtml(
+                item.description?.let { HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY) }.toString(),
+                HtmlCompat.FROM_HTML_MODE_COMPACT
+            )
             binding.pubDate.text = item.pubDate
             binding.guid.text = item.guid.text
         }

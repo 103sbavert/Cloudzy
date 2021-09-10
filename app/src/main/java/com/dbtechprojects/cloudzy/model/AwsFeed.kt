@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.tickaroo.tikxml.annotation.*
 
 @Xml(name = "rss")
-data class AWSFeed(
+data class AwsFeed(
 
     @Attribute
     val version: String? = null,

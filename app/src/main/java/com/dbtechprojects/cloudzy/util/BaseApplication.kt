@@ -21,7 +21,8 @@ class BaseApplication : Application(), Configuration.Provider {
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
     private val awsWorkRequest = PeriodicWorkRequestBuilder<AwsWorker>(1, TimeUnit.HOURS).build()
-    private val gcpWorkRequest = PeriodicWorkRequestBuilder<GcpWorker>(1, TimeUnit.HOURS).build()
+    private val azureWorkRequest = PeriodicWorkRequestBuilder<GcpWorker>(1, TimeUnit.HOURS).build()
+    private val gcpWorkRequest = PeriodicWorkRequestBuilder<AzureWorker>(1, TimeUnit.HOURS).build()
     lateinit var preferences: SharedPreferences
 
     override fun getWorkManagerConfiguration() =
@@ -37,10 +38,9 @@ class BaseApplication : Application(), Configuration.Provider {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
 
-        val constraints = Constraints.Builder().setRequiresDeviceIdle(true)
-
         // only enqueue the work once, that is, when the app is first installed and opened for the first time.
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(Constants.AWS_WORK_REQUEST_UNIQUE_ID, ExistingPeriodicWorkPolicy.KEEP, awsWorkRequest)
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(Constants.AZURE_WORK_REQUEST_UNIQUE_ID, ExistingPeriodicWorkPolicy.KEEP, azureWorkRequest)
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(Constants.GCP_WORK_REQUEST_UNIQUE_ID, ExistingPeriodicWorkPolicy.KEEP, gcpWorkRequest)
     }
 
@@ -57,7 +57,13 @@ class BaseApplication : Application(), Configuration.Provider {
             getString(R.string.notification_channel_name, "GCP"),
             importance
         )
+        val azureNotificationChannel = NotificationChannel(
+            Constants.AZURE_NOTIFICATION_CHANNEL_ID,
+            getString(R.string.notification_channel_name, "AZURE"),
+            importance
+        )
         NotificationManagerCompat.from(this).createNotificationChannel(awsNotificationChannel)
         NotificationManagerCompat.from(this).createNotificationChannel(gcpNotificationChannel)
+        NotificationManagerCompat.from(this).createNotificationChannel(azureNotificationChannel)
     }
 }

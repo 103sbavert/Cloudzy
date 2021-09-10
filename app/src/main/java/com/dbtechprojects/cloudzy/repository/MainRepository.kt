@@ -1,7 +1,5 @@
 package com.dbtechprojects.cloudzy.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dbtechprojects.cloudzy.api.AwsApiInterface
 import com.dbtechprojects.cloudzy.api.AzureApiInterface
@@ -20,19 +18,16 @@ constructor(
     private var gcpApi: GcpApiInterface,
     private val cacheDatabase: CacheDatabase
 ) {
-    enum class State {
-        SUCCESS,
-        LOADING,
-        FAILURE
+
+    sealed class State() {
+        class PASSED : State()
+        class LOADING : State()
+        class FAILED : State()
     }
 
-    private val _awsApiFetchResult = MutableLiveData<State>()
-    val awsApiFetchResult: LiveData<State>
-        get() = _awsApiFetchResult
-
-    private val _gcpApiFetchResult = MutableLiveData<State>()
-    val gcpApiFetchResult: LiveData<State>
-        get() = _gcpApiFetchResult
+    val awsApiFetchResult = MutableLiveData<State>()
+    val gcpApiFetchResult = MutableLiveData<State>()
+    val azureApiFetchResult = MutableLiveData<State>()
 
     fun getCacheDatabaseDao() = cacheDatabase.getDao()
 
@@ -46,8 +41,9 @@ constructor(
         return@withContext awsApi.getAwsResponse().body()?.channel?.itemList!!
     }
 
+
     suspend fun updateAwsDb() = try {
-        _awsApiFetchResult.postValue(State.LOADING)
+        awsApiFetchResult.postValue(State.LOADING())
         val oldList = getCacheDatabaseDao().getAwsEvents()
         val newList = getAwsItemsFromApi()
         val shouldUpdateDb: Boolean = compareLists(newList, oldList)
@@ -55,11 +51,11 @@ constructor(
             getCacheDatabaseDao().deleteAllAwsItems()
             getCacheDatabaseDao().insertAwsItems(newList)
         }
-        _awsApiFetchResult.postValue(State.SUCCESS)
+        awsApiFetchResult.postValue(State.PASSED())
         shouldUpdateDb
     } catch (e: Exception) {
         e.printStackTrace()
-        _awsApiFetchResult.postValue(State.FAILURE)
+        awsApiFetchResult.postValue(State.FAILED())
         false
     }
 
@@ -68,7 +64,7 @@ constructor(
     }
 
     suspend fun updateGcpDb() = try {
-        _gcpApiFetchResult.postValue(State.LOADING)
+        gcpApiFetchResult.postValue(State.LOADING())
         val oldList = getCacheDatabaseDao().getGcpEvents()
         val newList = getGcpItemsFromApi()
         val shouldUpdateDb: Boolean = compareLists(newList, oldList)
@@ -76,33 +72,31 @@ constructor(
             getCacheDatabaseDao().deleteAllGcpItems()
             getCacheDatabaseDao().insertGcpItems(newList)
         }
-        _gcpApiFetchResult.postValue(State.SUCCESS)
+        gcpApiFetchResult.postValue(State.PASSED())
         shouldUpdateDb
     } catch (e: Exception) {
         e.printStackTrace()
-        _gcpApiFetchResult.postValue(State.FAILURE)
+        gcpApiFetchResult.postValue(State.FAILED())
         false
     }
 
     private suspend fun getAzureItemsFromApi() = withContext(IO) {
-        return@withContext azureApi.getAzureResponse().body()?.channel!!.item
+        return@withContext azureApi.getAzureResponse().body()?.channel!!.itemList
     }
 
     suspend fun updateAzureDb() = try {
-       // _gcpApiFetchResult.postValue(State.LOADING)
-        //val oldList = getCacheDatabaseDao().getGcpEvents()
+        azureApiFetchResult.postValue(State.LOADING())
+        val oldList = getCacheDatabaseDao().getAzureEvents()
         val newList = getAzureItemsFromApi()
-//        val shouldUpdateDb: Boolean = compareLists(newList, oldList)
-//        if (shouldUpdateDb) {
-//            getCacheDatabaseDao().deleteAllGcpItems()
-//            getCacheDatabaseDao().insertGcpItems(newList)
-//        }
-        //_gcpApiFetchResult.postValue(State.SUCCESS)
-        //shouldUpdateDb
-        Log.d("azure", "result ${newList.toString()}")
+        val shouldUpdateDb: Boolean = compareLists(newList, oldList)
+        if (shouldUpdateDb) {
+            getCacheDatabaseDao().deleteAllAzureItems()
+            getCacheDatabaseDao().insertAzureItems(newList)
+        }
+        azureApiFetchResult.postValue(State.PASSED())
+        shouldUpdateDb
     } catch (e: Exception) {
-        Log.e("azure", e.localizedMessage)
+        azureApiFetchResult.postValue(State.FAILED())
         false
     }
-
 }

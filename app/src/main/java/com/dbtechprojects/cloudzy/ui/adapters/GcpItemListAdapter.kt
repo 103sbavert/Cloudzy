@@ -39,7 +39,7 @@ class GcpItemListAdapter(private val onButtonClickListener: OnButtonsClickListen
             binding.created.text = item.created
             binding.id.text = binding.root.context.getString(R.string.id_text, item.id)
             item.affectedProducts?.let { setAffectedProductsText(it) }
-            binding.updatesButton.setOnClickListener { onButtonClickListener.onUpdatesButtonClickListener(item.id) }
+            binding.updatesButton.setOnClickListener { onButtonClickListener.onSeeAllButtonClickListener(item.id) }
             item.mostRecentUpdate?.let { bindMostRecentUpdate(it) }
         }
 
@@ -94,7 +94,7 @@ class GcpItemListAdapter(private val onButtonClickListener: OnButtonsClickListen
     }
 
     interface OnButtonsClickListener {
-        fun onUpdatesButtonClickListener(id: String)
+        fun onSeeAllButtonClickListener(id: String)
     }
 }
 

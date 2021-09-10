@@ -1,10 +1,7 @@
 package com.dbtechprojects.cloudzy.database
 
 import androidx.room.TypeConverter
-import com.dbtechprojects.cloudzy.model.AffectedProduct
-import com.dbtechprojects.cloudzy.model.Guid
-import com.dbtechprojects.cloudzy.model.MostRecentUpdate
-import com.dbtechprojects.cloudzy.model.Update
+import com.dbtechprojects.cloudzy.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -71,6 +68,18 @@ class Converters {
     @TypeConverter
     fun String.convertStringToMostRecentUpdate(): MostRecentUpdate {
         val type = object : TypeToken<MostRecentUpdate>() {}.type
+        return gson.fromJson(this, type)
+    }
+
+    @TypeConverter
+    fun List<AzureCategory>.convertAzureCategoryListToString(): String {
+        val type = object : TypeToken<List<AzureCategory>>(){}.type
+        return gson.toJson(this, type)
+    }
+
+    @TypeConverter
+    fun String.convertStringToAzureCategoryList(): List<AzureCategory> {
+        val type = object : TypeToken<List<AzureCategory>>(){}.type
         return gson.fromJson(this, type)
     }
 }

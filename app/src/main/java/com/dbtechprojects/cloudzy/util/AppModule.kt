@@ -9,6 +9,7 @@ import com.dbtechprojects.cloudzy.repository.MainRepository
 import com.dbtechprojects.cloudzy.util.Constants.AWS_URL
 import com.dbtechprojects.cloudzy.util.Constants.AZURE_URL
 import com.dbtechprojects.cloudzy.util.Constants.GCP_URL
+import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import dagger.Module
 import dagger.Provides
